@@ -1,9 +1,6 @@
 # HeartBeat
 [![Java CI with Gradle](https://github.com/berdosi/HeartBeat/actions/workflows/gradle.yml/badge.svg)](https://github.com/berdosi/HeartBeat/actions/workflows/gradle.yml)
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/breatheForFYP/)
 
 A very simple heart rate monitor for Android.
 
