@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.TextureView;
 import android.view.Surface;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -136,6 +137,14 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
                 REQUEST_CODE_CAMERA);
         // rachel
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
+
+        Button button = findViewById(R.id.menuButton);
+
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainMenu.class);
+
+            startActivity(intent);
+        });
 
     }
 

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainMenu">
+
 
     <Button
         android:id="@+id/bio_audio_haptic"
@@ -54,7 +56,7 @@
         android:id="@+id/manual_audio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
+        android:layout_marginTop="132dp"
         android:width="280dp"
         android:text="Manual: Audio"
         android:textSize="16sp"
