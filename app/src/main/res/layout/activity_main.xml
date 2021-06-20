@@ -48,8 +48,8 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="347dp"
-            android:layout_height="@dimen/camera_view_height"
+            android:layout_width="341dp"
+            android:layout_height="80dp"
             android:layout_marginTop="88dp"
             android:gravity="center_vertical"
             android:textAlignment="gravity"
@@ -62,8 +62,8 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="337dp"
-            android:layout_height="364dp"
+            android:layout_width="306dp"
+            android:layout_height="229dp"
             android:layout_marginStart="@dimen/camera_view_height"
             android:layout_marginEnd="@dimen/camera_view_height"
             android:focusable="false"
@@ -73,10 +73,10 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.62" />
+            app:layout_constraintVertical_bias="0.687" />
 
         <Button
             android:id="@+id/menuButton"

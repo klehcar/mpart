@@ -7,11 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -19,18 +14,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.Surface;
+import android.view.TextureView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
@@ -46,6 +44,8 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     private static final int MENU_INDEX_EXPORT_DETAILS = 2;
 
     private boolean justShared = false;
+
+
 
 
     @SuppressLint("HandlerLeak")
@@ -139,14 +139,20 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
 
         Button button = findViewById(R.id.menuButton);
-
         button.setOnClickListener(v -> {
-            Intent intent = new Intent(this, MainMenu.class);
-
+            Intent intent = new Intent (this, MainMenu.class);
             startActivity(intent);
         });
 
+
+
+
+
     }
+
+
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

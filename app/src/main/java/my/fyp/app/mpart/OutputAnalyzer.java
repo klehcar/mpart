@@ -92,6 +92,7 @@ class OutputAnalyzer {
                         detectedValleys = detectedValleys + 1;
                         valleys.add(store.getLastTimestamp().getTime());
                         // in 13 seconds (13000 milliseconds), I expect 15 valleys. that would be a pulse of 15 / 130000 * 60 * 1000 = 69
+                        // most important!
 
                         String currentValue = String.format(
                                 Locale.getDefault(),
@@ -128,6 +129,8 @@ class OutputAnalyzer {
                     return;
                 }
 
+
+
                 String currentValue = String.format(
                         Locale.getDefault(),
                         activity.getResources().getQuantityString(R.plurals.measurement_output_template, detectedValleys - 1),
@@ -135,11 +138,31 @@ class OutputAnalyzer {
                         detectedValleys - 1,
                         1f * (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f);
 
+
                 sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
 
                 StringBuilder returnValueSb = new StringBuilder();
                 returnValueSb.append(currentValue);
                 returnValueSb.append(activity.getString(R.string.row_separator));
+
+                //rachel
+                float breatheRate = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) /4;
+
+                String currentValue2 = String.format(
+                        Locale.getDefault(),
+                        activity.getResources().getQuantityString(R.plurals.breathRate_output_template, detectedValleys - 1),
+                        (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f)))/4);
+
+                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue2);
+
+                StringBuilder returnValueSb2 = new StringBuilder();
+                returnValueSb2.append(currentValue2);
+                returnValueSb2.append(activity.getString(R.string.row_separator));
+
+
+
+
+
 
                 // look for "drops" of 0.15 - 0.75 in the value
                 // a drop may take 2-3 ticks.
@@ -186,6 +209,8 @@ class OutputAnalyzer {
 //                }
 
                 sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
+                //rachel
+                //sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb2.toString());
 
                 cameraService.stop();
             }
