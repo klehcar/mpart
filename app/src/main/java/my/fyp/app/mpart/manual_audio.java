@@ -1,6 +1,8 @@
 package my.fyp.app.mpart;
 
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,11 +17,25 @@ import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 
 
-
-public class manual_audio extends AppCompatActivity {
+public class manual_audio extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
     private ImageView imageView;
     private TextView guideTxt;
     private Button startButton;
+    private ImageView filter;
+    private ImageView back;
+    private ImageView circleBreathe;
+
+    private int inhale;
+    private int exhale;
+    private int hold;
+    private boolean timer;
+
+    private boolean run;
+
+    private boolean isRunning;
+    private float f;
+
+    private int selectedTimer;
 
 
 
@@ -27,11 +43,37 @@ public class manual_audio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_audio);
-        imageView = findViewById(R.id.lotusImage);
 
+        //in miliseconds 1000ms = 1s
+        inhale=5000;
+        hold=0;
+        exhale=5000;
+
+        if(getIntent().getStringExtra("inhale")!=null){
+            inhale = Integer.parseInt(getIntent().getStringExtra("inhale"));
+        }
+        if(getIntent().getStringExtra("exhale")!=null){
+            exhale =Integer.parseInt( getIntent().getStringExtra("exhale"));
+        }
+        if(getIntent().getStringExtra("hold")!=null){
+            hold = Integer.parseInt(getIntent().getStringExtra("hold"));
+        }
+
+        selectedTimer = 1000*60;  //initiliazing timer with 1 minute
+        run=true;
+        isRunning=false;
+
+        circleBreathe = findViewById(R.id.circleAnimate);
+        filter = findViewById(R.id.slidersIcon);
+        back = findViewById(R.id.backIcon);
+        imageView = findViewById(R.id.lotusImage); //not using
         guideTxt = findViewById(R.id.guideTxt);
 
-        startIntroAnimation();
+        f = 1f;
+
+        startIntroAnimation(); // delete later
+
+
 
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -59,8 +101,27 @@ public class manual_audio extends AppCompatActivity {
 //                .duration(2000) //in miliseconds 1000ms = 1s
 //                .start();
 
+        // Botttom sheet dialog
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
+                d.show(getSupportFragmentManager(),"exampleBottomSheet");
+            }
+        });
+
+        // back to menu
+        back.setOnClickListener(v -> {
+            Intent intent = new Intent (this, MainMenu.class);
+            startActivity(intent);
+        });
+
+
+
 
     }
+
+
 
     private void startIntroAnimation(){
         ViewAnimator
@@ -120,4 +181,49 @@ public class manual_audio extends AppCompatActivity {
                 .start();
 
     }
+
+    void performAnimation(ImageView im, float f, int timer, int hold) {
+        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(im, "scaleX", f);
+        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(im, "scaleY", f);
+        scaleDownX.setDuration(timer);
+        scaleDownY.setDuration(timer);
+
+        AnimatorSet scaleDown = new AnimatorSet();
+
+
+        scaleDown.play(scaleDownX).with(scaleDownY);
+        //scaleDown.setStartDelay(hold);
+        scaleDown.start();
+
+    }
+
+
+
+
+
+    @Override
+    public void onButtonClicked(int inhale, int exhale) {
+        this.inhale = inhale;
+        this.exhale = exhale;
+        this.hold = hold;
+
+    }
+
+    @Override
+    public void onInhaleProgressChanged(int inhale) {
+        if (inhale!=0){
+            this.inhale=inhale;
+        }
+
+    }
+
+    @Override
+    public void onExhaleProgressChanged(int exhale) {
+        if (exhale!=0){
+            this.exhale=exhale;
+        }
+
+    }
+
+
 }

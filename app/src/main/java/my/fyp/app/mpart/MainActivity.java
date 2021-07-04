@@ -136,6 +136,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);
         // rachel
+
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
 
         Button button = findViewById(R.id.menuButton);
