@@ -13,6 +13,12 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        Button recordButton = findViewById(R.id.record);
+        recordButton.setOnClickListener(v -> {
+            Intent intent = new Intent (this, MainActivity.class);
+            startActivity(intent);
+        });
+
         Button mabutton = findViewById(R.id.manual_audio);
         mabutton.setOnClickListener(v -> {
             Intent intent = new Intent (this, manual_audio.class);

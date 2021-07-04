@@ -6,28 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".manual_audio">
 
-    <TextView
-        android:id="@+id/guideTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="476dp"
-        android:text="Breathe"
-        android:textColor="#9C27B0"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/startButton"
         android:layout_width="304dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:text="START"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#3EABF9"
+        android:text="Start"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideTxt" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/lotusImage"
@@ -35,8 +26,68 @@
         android:layout_height="190dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.776"
         app:srcCompat="@drawable/gradient_circle" />
+
+    <ImageView
+        android:id="@+id/circleBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="157dp"
+
+        android:gravity="center"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circle_back" />
+
+    <ImageView
+        android:id="@+id/circleAnimate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/circleBack"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/circleBack"
+        app:layout_constraintTop_toTopOf="@+id/circleBack"
+        app:srcCompat="@drawable/circle_animate" />
+
+    <ImageView
+        android:id="@+id/circleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="56dp"
+
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="44dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/circleAnimate"
+        app:layout_constraintEnd_toEndOf="@+id/circleAnimate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/circleAnimate"
+        app:layout_constraintTop_toTopOf="@+id/circleAnimate"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/circle_text" />
+
+    <TextView
+        android:id="@+id/guideTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breathe"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/circleText"
+        app:layout_constraintEnd_toEndOf="@+id/circleText"
+        app:layout_constraintStart_toStartOf="@+id/circleText"
+        app:layout_constraintTop_toTopOf="@+id/circleText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,7 +117,8 @@
         android:layout_width="220dp"
         android:layout_height="41dp"
         android:layout_gravity="center"
-        android:background="@drawable/start_button"
+        android:background="@drawable/rounded_corner"
+        android:backgroundTint="#3F51B5"
         android:text="RESET"
         android:textAlignment="center"
         android:textColor="#FFFFFF" />
