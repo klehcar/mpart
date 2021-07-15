@@ -24,6 +24,7 @@
         android:id="@+id/lotusImage"
         android:layout_width="190dp"
         android:layout_height="190dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.927"
@@ -52,7 +53,7 @@
         android:layout_height="wrap_content"
 
         android:gravity="center"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/circleBack"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/circleBack"

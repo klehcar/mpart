@@ -23,7 +23,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     private Button startButton;
     private ImageView filter;
     private ImageView back;
-    private ImageView circleBreathe;
+    private ImageView bg1;
 
     private int inhale;
     private int exhale;
@@ -36,6 +36,8 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     private float f;
 
     private int selectedTimer;
+    private CountDownTimer cd;
+    private CountDownTimer cdMain;
 
 
 
@@ -63,11 +65,12 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         run=true;
         isRunning=false;
 
-        circleBreathe = findViewById(R.id.circleAnimate);
+        bg1 = findViewById(R.id.circleAnimate);
         filter = findViewById(R.id.slidersIcon);
         back = findViewById(R.id.backIcon);
         imageView = findViewById(R.id.lotusImage); //not using
         guideTxt = findViewById(R.id.guideTxt);
+
 
         f = 1f;
 
@@ -114,6 +117,123 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         back.setOnClickListener(v -> {
             Intent intent = new Intent (this, MainMenu.class);
             startActivity(intent);
+        });
+
+        if(inhale==0){inhale=4000;}
+        if(exhale==0){exhale=4000;}
+        if(hold==0){hold=2000;}
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isRunning) {
+                    Intent in = new Intent(manual_audio.this, activity_completed.class);
+                    startActivity(in);
+                    finish();
+                    //Animatoo.animateFade(manual_audio.this);
+
+                    cdMain.cancel();
+                    timer=false;
+                    isRunning=false;
+//                    cd.cancel();
+                }
+                else{
+                    filter.setVisibility(View.INVISIBLE);
+
+                    //  filter.setVisibility(View.INVISIBLE);
+//                    back.setVisibility(View.INVISIBLE);
+
+                    //    settings.setVisibility(View.INVISIBLE);
+                    isRunning=true;
+                    timer=true;
+                    startButton.setText("STOP");
+                    int extrahold =0;
+
+
+                    cdMain = new CountDownTimer(selectedTimer,inhale+hold+exhale+extrahold) {
+                        @Override
+                        public void onTick(long l) {
+
+                            cd = new CountDownTimer(inhale, inhale) {
+                                public void onTick(long millisUntilFinished) {
+                                    startButton.setText("STOP");
+
+                                    guideTxt.setText("Breath in");
+                                    f = 2f;
+                                    //performAnimation(bg2, f, inhale, hold);
+                                    performAnimation(bg1, f - 0.5f, inhale, hold);
+                                }
+
+
+
+                                public void onFinish() {
+                                    timer = false;
+
+                                    cd = new CountDownTimer(hold, hold) {
+                                        public void onTick(long millisUntilFinished) {
+                                            guideTxt.setText("Hold");
+                                        }
+
+
+
+                                        public void onFinish() {
+                                            cd = new CountDownTimer(exhale, exhale) {
+                                                public void onTick(long millisUntilFinished) {
+                                                    f = 1f;
+                                                    guideTxt.setText("Breath out");
+
+                                                    //performAnimation(bg2, f, exhale, hold);
+                                                    performAnimation(bg1, f, exhale, hold);
+                                                }
+
+
+
+                                                public void onFinish() {
+
+                                                    timer = false;
+                                                }
+                                            }.start();
+                                        }
+                                    }.start();
+
+
+
+                                }
+                            }.start();
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                            try {
+                                wait(1000);
+                            }
+                            catch (Exception e){}
+                            Intent in = new Intent(manual_audio.this,activity_completed.class);
+                            startActivity(in);
+                            //Animatoo.animateFade(MainActivity.this);
+                            finish();
+
+                        }
+                    }.start();
+
+                }
+
+            }
+
+
+
+
+
+        });
+
+
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
+                d.show(getSupportFragmentManager(),"exampleBottomSheet");
+            }
         });
 
 
