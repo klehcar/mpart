@@ -4,6 +4,7 @@ package my.fyp.app.mpart;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
@@ -38,6 +40,8 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     private int selectedTimer;
     private CountDownTimer cd;
     private CountDownTimer cdMain;
+
+    ConstraintLayout layout;
 
 
 
@@ -70,6 +74,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         back = findViewById(R.id.backIcon);
         imageView = findViewById(R.id.lotusImage); //not using
         guideTxt = findViewById(R.id.guideTxt);
+        layout = findViewById(R.id.constraintLayout);
 
 
         f = 1f;
@@ -137,12 +142,12 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 //                    cd.cancel();
                 }
                 else{
-                    filter.setVisibility(View.INVISIBLE);
+                    ////// breathing session starts //////
 
-                    //  filter.setVisibility(View.INVISIBLE);
-//                    back.setVisibility(View.INVISIBLE);
+                    filter.setVisibility(View.INVISIBLE); // hide filter
+                    back.setVisibility(View.INVISIBLE); // hide back chevron
+                    layout.setBackgroundColor(Color.parseColor("#F9F6F3"));
 
-                    //    settings.setVisibility(View.INVISIBLE);
                     isRunning=true;
                     timer=true;
                     startButton.setText("STOP");
@@ -157,8 +162,8 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                 public void onTick(long millisUntilFinished) {
                                     startButton.setText("STOP");
 
-                                    guideTxt.setText("Breath in");
-                                    f = 2f;
+                                    guideTxt.setText("Inhale");
+                                    f = 3f;
                                     //performAnimation(bg2, f, inhale, hold);
                                     performAnimation(bg1, f - 0.5f, inhale, hold);
                                 }
@@ -179,7 +184,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                             cd = new CountDownTimer(exhale, exhale) {
                                                 public void onTick(long millisUntilFinished) {
                                                     f = 1f;
-                                                    guideTxt.setText("Breath out");
+                                                    guideTxt.setText("Exhale");
 
                                                     //performAnimation(bg2, f, exhale, hold);
                                                     performAnimation(bg1, f, exhale, hold);
