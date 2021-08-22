@@ -1,26 +1,32 @@
 package my.fyp.app.mpart;
 
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+        import android.Manifest;
+        import android.animation.AnimatorSet;
+        import android.animation.ObjectAnimator;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.graphics.Color;
+        import android.media.MediaPlayer;
+        import android.os.Bundle;
+        import android.os.CountDownTimer;
+        import android.os.Vibrator;
+        import android.view.View;
+        import android.widget.Button;
+        import android.widget.ImageView;
+        import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.constraintlayout.widget.ConstraintLayout;
+        import androidx.core.app.ActivityCompat;
 
-import com.github.florent37.viewanimator.AnimationListener;
-import com.github.florent37.viewanimator.ViewAnimator;
+        import com.github.florent37.viewanimator.AnimationListener;
+        import com.github.florent37.viewanimator.ViewAnimator;
+        import com.google.android.material.snackbar.Snackbar;
 
 
-public class manual_audio extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
+public class activity_manual_audiovibrate extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
     private ImageView imageView;
     private TextView guideTxt;
     private Button startButton;
@@ -45,13 +51,22 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     ConstraintLayout layout;
 
     MediaPlayer player;
+//    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+//    private static final int REQUEST_CODE_VIBRATE = 111;
+    //final long[] pattern = {0,1000};
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manual_audio);
+        setContentView(R.layout.activity_manual_audiovibrate);
+
+//        ActivityCompat.requestPermissions(this,
+//                new String[]{Manifest.permission.VIBRATE},
+//                REQUEST_CODE_VIBRATE);
+
+
 
         //in miliseconds 1000ms = 1s
         inhale=5000;
@@ -134,7 +149,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
             @Override
             public void onClick(View view) {
                 if(isRunning) {
-                    Intent in = new Intent(manual_audio.this, activity_completed.class);
+                    Intent in = new Intent(activity_manual_audiovibrate.this, activity_completed.class);
                     startActivity(in);
                     finish();
                     //Animatoo.animateFade(manual_audio.this);
@@ -174,6 +189,10 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundin);
                                     }
                                     player.start();
+
+                                    //vibration
+
+//                                    vibrator.vibrate(1000);
                                 }
 
 
@@ -185,6 +204,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                         public void onTick(long millisUntilFinished) {
                                             guideTxt.setText("Hold");
                                             stopPlayer();
+                                            //vibrator.cancel();
 
                                         }
 
@@ -232,7 +252,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                 wait(1000);
                             }
                             catch (Exception e){}
-                            Intent in = new Intent(manual_audio.this,activity_completed.class);
+                            Intent in = new Intent(activity_manual_audiovibrate.this,activity_completed.class);
                             startActivity(in);
                             //Animatoo.animateFade(MainActivity.this);
                             finish();
@@ -265,6 +285,19 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
 
     }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_CODE_VIBRATE) {
+//            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+//                Snackbar.make(
+//                        findViewById(R.id.constraintLayout),
+//                        getString(R.string.cameraPermissionRequired),
+//                        Snackbar.LENGTH_LONG
+//                ).show();
+//            }
+//        }
+//    }
 
     //        STOP sound during hold breath
     private void stopPlayer() {
