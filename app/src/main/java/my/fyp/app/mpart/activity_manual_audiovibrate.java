@@ -4,12 +4,15 @@ package my.fyp.app.mpart;
         import android.Manifest;
         import android.animation.AnimatorSet;
         import android.animation.ObjectAnimator;
+        import android.content.Context;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.graphics.Color;
         import android.media.MediaPlayer;
+        import android.os.Build;
         import android.os.Bundle;
         import android.os.CountDownTimer;
+        import android.os.VibrationEffect;
         import android.os.Vibrator;
         import android.view.View;
         import android.widget.Button;
@@ -51,6 +54,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
     ConstraintLayout layout;
 
     MediaPlayer player;
+    Vibrator vibrator;
 //    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 //    private static final int REQUEST_CODE_VIBRATE = 111;
     //final long[] pattern = {0,1000};
@@ -61,6 +65,8 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_audiovibrate);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 //        ActivityCompat.requestPermissions(this,
 //                new String[]{Manifest.permission.VIBRATE},
@@ -149,7 +155,11 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
             @Override
             public void onClick(View view) {
                 if(isRunning) {
+                    // STOP breathing session forcefully ////
+
                     Intent in = new Intent(activity_manual_audiovibrate.this, activity_completed.class);
+                    stopPlayer();
+                    vibrator.cancel();
                     startActivity(in);
                     finish();
                     //Animatoo.animateFade(manual_audio.this);
@@ -191,6 +201,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                     player.start();
 
                                     //vibration
+                                    Vibrate(10000);
 
 //                                    vibrator.vibrate(1000);
                                 }
@@ -204,7 +215,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                         public void onTick(long millisUntilFinished) {
                                             guideTxt.setText("Hold");
                                             stopPlayer();
-                                            //vibrator.cancel();
+                                            vibrator.cancel();
 
                                         }
 
@@ -246,13 +257,13 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                         @Override
                         public void onFinish() {
 
-                            stopPlayer();
-
                             try {
                                 wait(1000);
+                                stopPlayer();
                             }
                             catch (Exception e){}
                             Intent in = new Intent(activity_manual_audiovibrate.this,activity_completed.class);
+                            stopPlayer();
                             startActivity(in);
                             //Animatoo.animateFade(MainActivity.this);
                             finish();
@@ -285,6 +296,18 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
 
 
     }
+
+    private void Vibrate(long millisecond){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            ((Vibrator)getSystemService(VIBRATOR_SERVICE))
+                    .vibrate(VibrationEffect.createOneShot(millisecond,VibrationEffect.DEFAULT_AMPLITUDE));
+
+        }
+        else{
+            ((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(millisecond);
+        }
+    }
+
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
