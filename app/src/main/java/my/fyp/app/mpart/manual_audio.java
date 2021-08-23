@@ -54,7 +54,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     ConstraintLayout layout;
 
     MediaPlayer player;
-    Vibrator vibrator;
+
 //    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 //    private static final int REQUEST_CODE_VIBRATE = 111;
     //final long[] pattern = {0,1000};
@@ -66,7 +66,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_audio);
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 
 //        ActivityCompat.requestPermissions(this,
 //                new String[]{Manifest.permission.VIBRATE},
@@ -154,12 +154,17 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopPlayer();
                 if(isRunning) {
                     // STOP breathing session forcefully ////
+                    if (player != null){
+                        player.release();
+                        player = null;
+                    }
 
                     Intent in = new Intent(manual_audio.this, activity_completed.class);
                     stopPlayer();
-                    vibrator.cancel();
+
                     startActivity(in);
                     finish();
                     //Animatoo.animateFade(manual_audio.this);
