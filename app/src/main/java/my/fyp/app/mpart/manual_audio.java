@@ -1,6 +1,8 @@
 package my.fyp.app.mpart;
 
 
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
 import android.Manifest;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -54,6 +57,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     ConstraintLayout layout;
 
     MediaPlayer player;
+    Vibrator vibrator;
 
 //    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 //    private static final int REQUEST_CODE_VIBRATE = 111;
@@ -66,7 +70,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_audio);
 
-
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 //        ActivityCompat.requestPermissions(this,
 //                new String[]{Manifest.permission.VIBRATE},
@@ -154,25 +158,34 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopPlayer();
                 if(isRunning) {
                     // STOP breathing session forcefully ////
-                    if (player != null){
-                        player.release();
-                        player = null;
-                    }
 
                     Intent in = new Intent(manual_audio.this, activity_completed.class);
-                    stopPlayer();
 
+
+                    vibrator.cancel();
                     startActivity(in);
+                    if (player!=null){
+                        player.stop();
+                        player.reset();
+                        player.release();
+                        player=null;
+                    }
+//                    player.pause();
+//                    player.reset();
+//                    player.release();
+//                    player = null;
+                    Log.d(TAG, "stopPlayer");
                     finish();
                     //Animatoo.animateFade(manual_audio.this);
 
                     cdMain.cancel();
                     timer=false;
                     isRunning=false;
-//                    cd.cancel();
+                    cd.cancel();
+                    Log.d(TAG, "MA stop running");
+
                 }
                 else{
                     ////// breathing session starts //////
@@ -204,7 +217,13 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundin);
                                     }
                                     player.start();
+                                    Log.d(TAG, "MA inhale running");
 
+
+                                    //vibration
+                                    //Vibrate(10000);
+
+//                                    vibrator.vibrate(1000);
                                 }
 
 
@@ -216,6 +235,8 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                         public void onTick(long millisUntilFinished) {
                                             guideTxt.setText("Hold");
                                             stopPlayer();
+                                            //vibrator.cancel();
+                                            Log.d(TAG, "MA hold running");
 
 
                                         }
@@ -234,6 +255,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundout);
                                                     }
                                                     player.start();
+                                                    Log.d(TAG, "MA: exhale running");
                                                 }
 
 

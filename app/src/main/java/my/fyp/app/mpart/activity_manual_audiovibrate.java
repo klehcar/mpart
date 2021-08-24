@@ -1,6 +1,8 @@
 package my.fyp.app.mpart;
 
 
+        import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
         import android.Manifest;
         import android.animation.AnimatorSet;
         import android.animation.ObjectAnimator;
@@ -14,6 +16,7 @@ package my.fyp.app.mpart;
         import android.os.CountDownTimer;
         import android.os.VibrationEffect;
         import android.os.Vibrator;
+        import android.util.Log;
         import android.view.View;
         import android.widget.Button;
         import android.widget.ImageView;
@@ -158,19 +161,29 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                     // STOP breathing session forcefully ////
 
                     Intent in = new Intent(activity_manual_audiovibrate.this, activity_completed.class);
-                    stopPlayer();
+                    //stopPlayer();
+
+                    player.stop();
+                    player.reset();
+                    player.release();
+                    player = null;
+
                     vibrator.cancel();
                     startActivity(in);
+
                     finish();
                     //Animatoo.animateFade(manual_audio.this);
 
                     cdMain.cancel();
                     timer=false;
                     isRunning=false;
-//                    cd.cancel();
+                    cd.cancel();
+                    Log.d(TAG, "MAV stop running");
+
                 }
                 else{
                     ////// breathing session starts //////
+
 
                     filter.setVisibility(View.INVISIBLE); // hide filter
                     back.setVisibility(View.INVISIBLE); // hide back chevron
@@ -199,6 +212,8 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundin);
                                     }
                                     player.start();
+                                    Log.d(TAG, "MAV inhale running");
+
 
                                     //vibration
                                     Vibrate(10000);
@@ -216,6 +231,8 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                             guideTxt.setText("Hold");
                                             stopPlayer();
                                             vibrator.cancel();
+                                            Log.d(TAG, "MAV hold running");
+
 
                                         }
 
@@ -233,6 +250,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundout);
                                                     }
                                                     player.start();
+                                                    Log.d(TAG, "MAV exhale running");
                                                 }
 
 
@@ -379,7 +397,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
 
                             @Override
                             public void onFinish() {
-                                startActivity( new Intent(getApplicationContext(), manual_audio.class));
+                                startActivity( new Intent(getApplicationContext(), activity_manual_audiovibrate.class));
                                 finish();
 
                             }
