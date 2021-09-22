@@ -178,7 +178,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 //                    player = null;
                     Log.d(TAG, "stopPlayer");
                     finish();
-                    //Animatoo.animateFade(manual_audio.this);
+                    //Animatoo.animateFade(manual_audio.this)
 
                     cdMain.cancel();
                     timer=false;
