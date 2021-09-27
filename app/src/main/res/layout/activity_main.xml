@@ -25,6 +25,8 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".MainActivity"
         tools:showIn="@layout/activity_main">
@@ -33,55 +35,28 @@
             android:id="@+id/graphTextureView"
             android:layout_width="match_parent"
             android:layout_height="59dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textureView2" />
 
         <TextureView
             android:id="@+id/textureView2"
             android:layout_width="@dimen/camera_view_width"
             android:layout_height="@dimen/camera_view_height"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="36dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/graphTextureView" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="341dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="88dp"
-            android:gravity="center_vertical"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.531"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/graphTextureView" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="341dp"
-            android:layout_height="221dp"
-            android:layout_marginStart="@dimen/camera_view_height"
-            android:layout_marginEnd="@dimen/camera_view_height"
-            android:focusable="false"
-            android:hint="@string/output_hint"
-            android:importantForAutofill="no"
-            android:inputType="none"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.833"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.691" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/menuButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="144dp"
+            android:layout_height="48dp"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="#E89696"
             android:text="Back to Menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +64,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.907" />
+
+        <TextView
+            android:id="@+id/measureTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:hint="@string/measure_title1"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/graphTextureView" />
+
+        <TextView
+            android:id="@+id/measureText1"
+            android:layout_width="305dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="28dp"
+            android:hint="@string/output_hint"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/measureTitle" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/instruction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/measureText1" />
+
+        <TextView
+            android:id="@+id/measureText2"
+            android:layout_width="298dp"
+            android:layout_height="28dp"
+
+            android:layout_marginTop="2dp"
+            android:focusable="false"
+            android:importantForAutofill="no"
+            android:inputType="none"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/measureText1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

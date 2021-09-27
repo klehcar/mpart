@@ -2,10 +2,12 @@ package my.fyp.app.mpart;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.TextureView;
+import android.widget.TextView;
 
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -29,6 +31,8 @@ class OutputAnalyzer {
     private CountDownTimer timer;
 
     private final Handler mainHandler;
+
+    MediaPlayer player;
 
     OutputAnalyzer(Activity activity, TextureView graphTextureView, Handler mainHandler) {
         this.activity = activity;
@@ -104,17 +108,34 @@ class OutputAnalyzer {
                                 1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
 
                         sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+
+                        //added
+                        String statusUpdate = "Measuring...";
+                        sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate);
                     }
+
+                    //added for measureTitle
+                    //((TextView)activity.findViewById(R.id.measureTitle)).setText("Measuring...");
+
 
                     // draw the chart on a separate thread.
                     Thread chartDrawerThread = new Thread(() -> chartDrawer.draw(store.getStdValues()));
                     chartDrawerThread.start();
                 });
                 thread.start();
+
+                //added for beep
+                if (player == null){
+                    player = MediaPlayer.create(activity.getApplicationContext(), R.raw.beep);
+                }
+                player.start();
+                player.setLooping(true);
             }
 
             @Override
             public void onFinish() {
+                player.release();
+                player = null;
                 CopyOnWriteArrayList<Measurement<Float>> stdValues = store.getStdValues();
 
                 // clip the interval to the first till the last one - on this interval, there were detectedValleys - 1 periods
@@ -129,7 +150,8 @@ class OutputAnalyzer {
                     return;
                 }
 
-
+                String statusUpdate2 = "Measuring Complete";
+                sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate2);
 
                 String currentValue = String.format(
                         Locale.getDefault(),
@@ -153,11 +175,15 @@ class OutputAnalyzer {
                         activity.getResources().getQuantityString(R.plurals.breathRate_output_template, detectedValleys - 1),
                         (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f)))/4);
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue2);
+                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, returnValueSb.toString());
+
 
                 StringBuilder returnValueSb2 = new StringBuilder();
                 returnValueSb2.append(currentValue2);
                 returnValueSb2.append(activity.getString(R.string.row_separator));
+
+                //added for measureTitle
+                //((TextView)activity.findViewById(R.id.measureTitle)).setText("Measuring Complete");
 
 
 
@@ -208,7 +234,10 @@ class OutputAnalyzer {
 //                    returnValueSb.append(activity.getString(R.string.row_separator));
 //                }
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
+                sendMessage(MainActivity.MESSAGE_UPDATE_FINAL,currentValue2);
+                //sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
+
+
                 //rachel
                 //sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb2.toString());
 

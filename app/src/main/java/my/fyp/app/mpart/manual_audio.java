@@ -178,7 +178,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 //                    player = null;
                     Log.d(TAG, "stopPlayer");
                     finish();
-                    //Animatoo.animateFade(manual_audio.this)
+                    //Animatoo.animateFade(manual_audio.this);
 
                     cdMain.cancel();
                     timer=false;
@@ -214,7 +214,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                     //performAnimation(bg2, f, inhale, hold);
                                     performAnimation(bg1, f - 0.5f, inhale, hold);
                                     if (player == null){
-                                        player = MediaPlayer.create(getApplicationContext(), R.raw.soundin);
+                                        player = MediaPlayer.create(getApplicationContext(), R.raw.inhalesound);
                                     }
                                     player.start();
                                     Log.d(TAG, "MA inhale running");
@@ -252,7 +252,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                                     //performAnimation(bg2, f, exhale, hold);
                                                     performAnimation(bg1, f, exhale, hold);
                                                     if (player == null){
-                                                        player = MediaPlayer.create(getApplicationContext(), R.raw.soundout);
+                                                        player = MediaPlayer.create(getApplicationContext(), R.raw.exhalesound);
                                                     }
                                                     player.start();
                                                     Log.d(TAG, "MA: exhale running");

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +20,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,12 +40,15 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     public static final int MESSAGE_UPDATE_REALTIME = 1;
     public static final int MESSAGE_UPDATE_FINAL = 2;
     public static final int MESSAGE_CAMERA_NOT_AVAILABLE = 3;
+    public static final int MESSAGE_UPDATE_TITLE = 4;
 
     private static final int MENU_INDEX_NEW_MEASUREMENT = 0;
     private static final int MENU_INDEX_EXPORT_RESULT = 1;
     private static final int MENU_INDEX_EXPORT_DETAILS = 2;
 
     private boolean justShared = false;
+
+    MediaPlayer player;
 
 
 
@@ -54,12 +59,16 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
 
+            if (msg.what ==  MESSAGE_UPDATE_TITLE) {
+                ((TextView) findViewById(R.id.measureTitle)).setText(msg.obj.toString());
+            } //added
+
             if (msg.what ==  MESSAGE_UPDATE_REALTIME) {
-                ((TextView) findViewById(R.id.textView)).setText(msg.obj.toString());
+                ((TextView) findViewById(R.id.measureText1)).setText(msg.obj.toString());
             }
 
             if (msg.what == MESSAGE_UPDATE_FINAL) {
-                ((EditText) findViewById(R.id.editText)).setText(msg.obj.toString());
+                ((TextView) findViewById(R.id.measureText2)).setText(msg.obj.toString());
 
                 // make sure menu items are enabled when it opens.
                 Menu appMenu = ((Toolbar) findViewById(R.id.toolbar)).getMenu();
@@ -70,13 +79,15 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
                 //rachel
                 ((Button) findViewById(R.id.menuButton)).setVisibility(View.VISIBLE);
 
+                ((ImageView)findViewById(R.id.imageView)).setVisibility(View.INVISIBLE);
+
 
             }
 
             if (msg.what == MESSAGE_CAMERA_NOT_AVAILABLE) {
                 Log.println(Log.WARN, "camera", msg.obj.toString());
 
-                ((TextView) findViewById(R.id.textView)).setText(
+                ((TextView) findViewById(R.id.measureText1)).setText(
                         R.string.camera_not_found
                 );
                 analyzer.stop();
@@ -113,9 +124,10 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
             // hide the new measurement item while another one is in progress in order to wait
             // for the previous one to finish
             ((Toolbar) findViewById(R.id.toolbar)).getMenu().getItem(MENU_INDEX_NEW_MEASUREMENT).setVisible(false);
-
             cameraService.start(previewSurface);
             analyzer.measurePulse(cameraTextureView, cameraService);
+
+
         }
     }
 
@@ -123,6 +135,10 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     protected void onPause() {
         super.onPause();
         cameraService.stop();
+
+        stopPlayer();
+        //((TextView)findViewById(R.id.measureTitle)).setText("Measuring Complete");
+
         if (analyzer != null) analyzer.stop();
         analyzer = new OutputAnalyzer(this, findViewById(R.id.graphTextureView), mainHandler);
     }
@@ -131,10 +147,11 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);
+
+
         // rachel
 
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
@@ -184,8 +201,8 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
 
         // clear prior results
         char[] empty = new char[0];
-        ((EditText) findViewById(R.id.editText)).setText(empty, 0, 0);
-        ((TextView) findViewById(R.id.textView)).setText(empty, 0, 0);
+        ((TextView) findViewById(R.id.measureText2)).setText(empty, 0, 0);
+        ((TextView) findViewById(R.id.measureText1)).setText(empty, 0, 0);
 
         // hide the new measurement item while another one is in progress in order to wait
         // for the previous one to finish
@@ -212,13 +229,13 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     }
 
     public void onClickExportResult(MenuItem item) {
-        final Intent intent = getTextIntent((String) ((TextView) findViewById(R.id.textView)).getText());
+        final Intent intent = getTextIntent((String) ((TextView) findViewById(R.id.measureText1)).getText());
         justShared = true;
         startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)));
     }
 
     public void onClickExportDetails(MenuItem item) {
-        final Intent intent = getTextIntent(((EditText) findViewById(R.id.editText)).getText().toString());
+        final Intent intent = getTextIntent(((TextView) findViewById(R.id.measureText2)).getText().toString());
         justShared = true;
         startActivity(Intent.createChooser(intent, getString(R.string.send_output_to)));
     }
@@ -238,4 +255,12 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
         intent.putExtra(Intent.EXTRA_TEXT, intentText);
         return intent;
     }
+
+    private void stopPlayer() {
+        if (player != null){
+            player.release();
+            player = null;
+        }
+    }
 }
+

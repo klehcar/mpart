@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">FYP</string>
     <string name="output_hint">
-        Please place your finger on the device\'s camera, covering the flash as well. After
-        10 seconds, your results will be shown.
-        \n\nThis utility works by measuring the amount of red it sees through the camera, and
-        attempting to detect the fluctuations.
-        \nIt works better in a darkened room, and when the pressure on the camera is constant.
-        \nIf there are multiple cameras on your device, make sure that your finger covers the entire
-        field of view in the small viewfinder.
+        Place finger over the camera lens and flash on the back of your phone. Hold until the measurement is complete.
     </string>
+    <string name="measure_title1" translatable="false">How To Measure</string>
+    <string name="measure_title2" translatable="false">Measuring...</string>
+    <string name="measure_title3" translatable="false">Measuring Complete</string>
     <string name="output_header_template">Heart rate on %s</string>
     <string name="output_detected_peaks_header">Detected Peaks:</string>
     <string name="send_output_to">Send output to:</string>
@@ -24,9 +21,9 @@
     <string name="dateFormatGranular">yyyy-MM-dd\'T\'HH:mm:ss.SSSXXX</string>
     <string name="camera_not_found">Camera not available.</string>
     <plurals name="measurement_output_template">
-        <item quantity="zero">Heart Rate: %2.1f bpm (%d cycle in %2.1f seconds)</item>
-        <item quantity="one">Heart Rate: %2.1f bpm (%d cycle in %2.1f seconds)</item>
-        <item quantity="other">Heart Rate: %2.1f bpm (%d cycles in %2.1f seconds)</item>
+        <item quantity="zero">Heart Rate: %2.1f bpm \n (%d cycle in %2.1f seconds)</item>
+        <item quantity="one">Heart Rate: %2.1f bpm \n (%d cycle in %2.1f seconds)</item>
+        <item quantity="other">Heart Rate: %2.1f bpm \n (%d cycles in %2.1f seconds)</item>
     </plurals>
     <plurals name="breathRate_output_template">
         <item quantity="zero">Breathing Rate: %2.1f brpm</item>

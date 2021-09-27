@@ -20,7 +20,7 @@ class ChartDrawer
 
         paint.setStyle(Paint.Style.STROKE);
 
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.parseColor("#2360B2"));
         paint.setAntiAlias(true);
         paint.setStrokeWidth(2);
 
@@ -30,6 +30,7 @@ class ChartDrawer
     }
 
     void draw(CopyOnWriteArrayList<Measurement<Float>> data) {
+
         Canvas chartCanvas = chartTextureView.lockCanvas();
 
         if (chartCanvas == null) return;
