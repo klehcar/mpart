@@ -31,6 +31,8 @@ import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Locale;
+
 
 public class manual_audio extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
     private ImageView imageView;
@@ -53,6 +55,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
     private int selectedTimer;
     private CountDownTimer cd;
     private CountDownTimer cdMain;
+    private int remainingTime;
 
     ConstraintLayout layout;
 
@@ -79,9 +82,12 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
 
         //in miliseconds 1000ms = 1s
-        inhale=5000;
-        hold=0;
-        exhale=5000;
+//        inhale=5000;
+//        hold=0;
+//        exhale=5000;
+        inhale=4000;
+        hold=7000;
+        exhale=8000;
 
         if(getIntent().getStringExtra("inhale")!=null){
             inhale = Integer.parseInt(getIntent().getStringExtra("inhale"));
@@ -93,7 +99,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
             hold = Integer.parseInt(getIntent().getStringExtra("hold"));
         }
 
-        selectedTimer = 1000*60;  //initiliazing timer with 1 minute
+        selectedTimer = 7600*60;  //initializing timer with 1 minute 16 seconds : 4 cycles
         run=true;
         isRunning=false;
 
@@ -102,6 +108,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
         back = findViewById(R.id.backIcon);
         imageView = findViewById(R.id.lotusImage); //not using
         guideTxt = findViewById(R.id.guideTxt);
+        //countTxt = findViewById(R.id.countTxt);
         layout = findViewById(R.id.constraintLayout);
 
 
@@ -231,9 +238,18 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                 public void onFinish() {
                                     timer = false;
 
-                                    cd = new CountDownTimer(hold, hold) {
+                                    cd = new CountDownTimer(7000, 1000) {
                                         public void onTick(long millisUntilFinished) {
-                                            guideTxt.setText("Hold");
+                                            remainingTime = (int)(millisUntilFinished / 1000);
+
+                                            if(remainingTime==7){
+                                                guideTxt.setText("Hold");
+                                            }
+                                            else{
+                                                guideTxt.setText(String.valueOf(remainingTime+1));
+
+                                            }
+
                                             stopPlayer();
                                             //vibrator.cancel();
                                             Log.d(TAG, "MA hold running");
