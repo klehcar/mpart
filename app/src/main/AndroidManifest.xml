@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -14,11 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<!--        <activity-->
-<!--            android:name=".activity_manual_audiovibrate"-->
-<!--            android:exported="true" />-->
         <activity
-            android:name=".activity_manual_audiovibrate" />
+            android:name=".BiofeedbackActivity"
+            android:exported="true" />
+        <!-- <activity -->
+        <!-- android:name=".activity_manual_audiovibrate" -->
+        <!-- android:exported="true" /> -->
+        <activity android:name=".activity_manual_audiovibrate" />
         <activity android:name=".activity_completed" />
         <activity android:name=".manual_audio" />
         <activity android:name=".MainActivity" />

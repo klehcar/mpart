@@ -59,6 +59,12 @@ public class MainMenu extends AppCompatActivity implements EasyPermissions.Permi
             startActivity(intent);
         });
 
+        Button biofeedBtn = findViewById(R.id.biofeedBtn);
+        biofeedBtn.setOnClickListener(v -> {
+            Intent intent = new Intent (this, BiofeedbackActivity.class);
+            startActivity(intent);
+        });
+
 
     }
 
