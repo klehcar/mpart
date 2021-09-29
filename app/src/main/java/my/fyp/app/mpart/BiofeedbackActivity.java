@@ -155,7 +155,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                     ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
                     ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
                     Log.d(TAG, "POS 4" );
-                } else if(newBPM<71){
+                } else if(newBPM<65){
                     ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.VISIBLE);
                     ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
                     ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
@@ -321,14 +321,10 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);
 
-//        ((TextView)findViewById(R.id.calm)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.meter)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
-//        ((ImageView)findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
-
+//        ((TextView)findViewById(R.id.measureText)).setVisibility(View.INVISIBLE);
+        ((TextView)findViewById(R.id.calm)).setVisibility(View.INVISIBLE);
+        ((ImageView)findViewById(R.id.meter)).setVisibility(View.INVISIBLE);
+        ((ImageView)findViewById(R.id.cover)).setVisibility(View.VISIBLE);
 
 
         ///////////////////////////// #2 for breathing guide
@@ -378,19 +374,15 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
         startButton = findViewById(R.id.startButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startAnimation();
-
-                ((TextView)findViewById(R.id.measureText)).setVisibility(View.INVISIBLE);
-                ((TextView)findViewById(R.id.calm)).setVisibility(View.VISIBLE);
-                ((ImageView)findViewById(R.id.meter)).setVisibility(View.VISIBLE);
-
-            }
-
-
-        });
+//        startButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startAnimation();
+//
+//            }
+//
+//
+//        });
 
 
 
@@ -462,6 +454,10 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 }
                 else{
                     ////// breathing session starts //////
+                    ((TextView)findViewById(R.id.measureText)).setVisibility(View.INVISIBLE);
+                    ((ImageView)findViewById(R.id.cover)).setVisibility(View.INVISIBLE);
+                    ((TextView)findViewById(R.id.calm)).setVisibility(View.VISIBLE);
+                    ((ImageView)findViewById(R.id.meter)).setVisibility(View.VISIBLE);
 
                     filter.setVisibility(View.INVISIBLE); // hide filter
                     back.setVisibility(View.INVISIBLE); // hide back chevron

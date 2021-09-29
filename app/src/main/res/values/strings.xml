@@ -3,6 +3,9 @@
     <string name="output_hint">
         Place finger over the camera lens and flash on the back of your phone. Hold until the measurement is complete.
     </string>
+    <string name="output_hint2" translatable="false">
+        Place finger over the camera lens and flash on the back of your phone. Hold until the session is complete.
+    </string>
     <string name="measure_title1" translatable="false">How To Measure</string>
     <string name="measure_title2" translatable="false">Measuring...</string>
     <string name="measure_title3" translatable="false">Measuring Complete</string>

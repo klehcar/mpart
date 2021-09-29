@@ -4,29 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F9F6F3"
     tools:context=".BiofeedbackActivity">
 
     <TextureView
         android:id="@+id/graphTextureViewB"
         android:layout_width="match_parent"
         android:layout_height="59dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="440dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/measureText"
-        android:layout_width="305dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="388dp"
-        android:hint="@string/output_hint"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measureText1" />
+         />
 
     <TextureView
         android:id="@+id/textureViewB"
@@ -140,6 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sliders" />
@@ -159,11 +148,11 @@
         android:id="@+id/meter"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleBack"
         app:srcCompat="@drawable/meter_square" />
 
     <ImageView
@@ -225,12 +214,47 @@
         android:id="@+id/calm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="6dp"
         android:text="calm"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/meter"
         app:layout_constraintHorizontal_bias="0.959"
         app:layout_constraintStart_toStartOf="@+id/meter"
         app:layout_constraintTop_toTopOf="@+id/meter" />
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="330dp"
+        android:layout_height="81dp"
+        android:backgroundTint="#F9F6F3"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/rounded_corner" />
+
+    <TextView
+        android:id="@+id/measureText"
+        android:layout_width="305dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="388dp"
+        android:hint="@string/output_hint2"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/mask"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textureViewB"
+        app:layout_constraintEnd_toEndOf="@+id/textureViewB"
+        app:layout_constraintStart_toStartOf="@+id/textureViewB"
+        app:layout_constraintTop_toTopOf="@+id/textureViewB"
+        app:srcCompat="@drawable/mask" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

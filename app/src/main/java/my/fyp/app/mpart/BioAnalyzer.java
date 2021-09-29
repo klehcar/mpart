@@ -28,7 +28,7 @@ class BioAnalyzer {
 
     private final int measurementInterval = 45;
 //    private final int measurementLength = 15000; // ensure the number of data points is the power of two
-private final int measurementLength = 1000*76;
+private final int measurementLength = 1000*100;
     private final int clipLength = 3500;
 
     private int detectedValleys = 0;
@@ -121,7 +121,9 @@ private final int measurementLength = 1000*76;
                                 detectedValleys,
                                 1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
 
-                        sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+//                        sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                        String startMSG = "Press the START button to begin breathing session";
+                        sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, startMSG);
                         Log.d(TAG, "REALTIME:" + currentValue);
 
                         BPM = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) ;
