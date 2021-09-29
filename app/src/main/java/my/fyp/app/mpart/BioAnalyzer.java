@@ -1,14 +1,18 @@
 package my.fyp.app.mpart;
 
+import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -20,6 +24,7 @@ class BioAnalyzer {
     private final ChartDrawer chartDrawer;
 
     private MeasureStore store;
+    private MeasureStore storeBPM;
 
     private final int measurementInterval = 45;
 //    private final int measurementLength = 15000; // ensure the number of data points is the power of two
@@ -69,6 +74,7 @@ private final int measurementLength = 1000*76;
         // detect local minimums, calculate pulse.
 
         store = new MeasureStore();
+        storeBPM = new MeasureStore();
 
         detectedValleys = 0;
 
@@ -85,7 +91,7 @@ private final int measurementLength = 1000*76;
                     int measurement = 0;
                     int[] pixels = new int[pixelCount];
                     int initialCount = 0;
-                    int initialBPM = 0;
+                    float BPM = 0;
 
 
                     currentBitmap.getPixels(pixels, 0, textureView.getWidth(), 0, 0, textureView.getWidth(), textureView.getHeight());
@@ -115,11 +121,19 @@ private final int measurementLength = 1000*76;
                                 detectedValleys,
                                 1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
 
-                        sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                        sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                        Log.d(TAG, "REALTIME:" + currentValue);
 
-                        //added
-                        String statusUpdate = "Measuring...";
-                        sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate);
+                        BPM = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) ;
+
+                        int meterValue = (int)BPM;
+                        storeBPM.add(meterValue);
+                        Log.d(TAG, "BPM: " + Integer.toString(meterValue));
+
+                        sendMessage(BiofeedbackActivity.MESSAGE_METER, meterValue);
+
+
+
 
 
 
@@ -142,7 +156,21 @@ private final int measurementLength = 1000*76;
 
 
 
+
+
                     }
+
+                    //meter
+//                    Thread meterthread = new Thread(() -> {
+//
+//                        CopyOnWriteArrayList<Measurement<Float>> meter = storeBPM.getStdValues();
+//                        for(Measurement<Float> dataPoint :meter){
+//                            float newBPM = dataPoint.measurement;
+//                            sendMessage(BiofeedbackActivity.MESSAGE_METER, newBPM);
+//
+//                        }
+//
+//                    }); meterthread.start();
 
 
                     // draw the chart on a separate thread.

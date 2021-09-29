@@ -149,9 +149,88 @@
         android:layout_width="273dp"
         android:layout_height="39dp"
         android:layout_marginTop="472dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/meter"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="452dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/meter_square" />
+
+    <ImageView
+        android:id="@+id/triangle1"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
+    <ImageView
+        android:id="@+id/triangle2"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.265"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
+    <ImageView
+        android:id="@+id/triangle3"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
+    <ImageView
+        android:id="@+id/triangle4"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
+    <ImageView
+        android:id="@+id/triangle5"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
+    <TextView
+        android:id="@+id/calm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="calm"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
