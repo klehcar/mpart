@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -21,10 +23,11 @@ class BioAnalyzer {
 
     private final Activity activity;
 
-    private final ChartDrawer chartDrawer;
+//    private final ChartDrawer chartDrawer;
 
     private MeasureStore store;
     private MeasureStore storeBPM;
+    private MeasureStore storeCount;
 
     private final int measurementInterval = 45;
 //    private final int measurementLength = 15000; // ensure the number of data points is the power of two
@@ -44,7 +47,7 @@ private final int measurementLength = 1000*100;
 
     BioAnalyzer(Activity activity, TextureView graphTextureView, Handler mainHandler) {
         this.activity = activity;
-        this.chartDrawer = new ChartDrawer(graphTextureView);
+//        this.chartDrawer = new ChartDrawer(graphTextureView);
         this.mainHandler = mainHandler;
     }
 
@@ -75,6 +78,9 @@ private final int measurementLength = 1000*100;
 
         store = new MeasureStore();
         storeBPM = new MeasureStore();
+        storeCount = new MeasureStore();
+        storeBPM.add(0);
+        storeBPM.add(0);
 
         detectedValleys = 0;
 
@@ -92,6 +98,7 @@ private final int measurementLength = 1000*100;
                     int[] pixels = new int[pixelCount];
                     int initialCount = 0;
                     float BPM = 0;
+                    int count=0;
 
 
                     currentBitmap.getPixels(pixels, 0, textureView.getWidth(), 0, 0, textureView.getWidth(), textureView.getHeight());
@@ -126,13 +133,65 @@ private final int measurementLength = 1000*100;
                         sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, startMSG);
                         Log.d(TAG, "REALTIME:" + currentValue);
 
+
+
+
+                        // needle animation update :)
+                        // working v1
+//                        BPM = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) ;
+//
+//                        int meterValue = (int)BPM;
+//                        storeBPM.add(meterValue);
+//                        Log.d(TAG, "BPM: " + Integer.toString(meterValue));
+//
+//                        sendMessage(BiofeedbackActivity.MESSAGE_METER, meterValue);
+
+                        //v2
                         BPM = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) ;
 
                         int meterValue = (int)BPM;
                         storeBPM.add(meterValue);
-                        Log.d(TAG, "BPM: " + Integer.toString(meterValue));
+                        Log.d(TAG, "BPM msg: " + Integer.toString(meterValue));
+                        count++;
+                        storeCount.add(count);
 
-                        sendMessage(BiofeedbackActivity.MESSAGE_METER, meterValue);
+
+
+
+
+//                        int j;
+//                        for(int i=0; i<9999 ; i++)
+//                        while(flag){
+//                            // starting point
+//                            if(i>0){
+//                                value[i] = meterValue;
+//                                diff = value[i] - value[i-1];
+//                                if(diff<0){ //BPM decrease,calmer
+//                                    position = 2; //move right
+//                                    sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                    Log.d(TAG, "needle msg right");
+//                                    Log.d(TAG, "needle msg diff: " + diff);
+//                                }
+//                                else if(diff>10){ //BPM increase by more than 10bpm, excited
+//                                    position = 3; //move left
+//                                    sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                    Log.d(TAG, "needle msg left");
+//                                    Log.d(TAG, "needle msg diff: " + diff);
+//                                }
+//
+//                            }
+//
+//                            //if BPM decrease, needle move right by 10px
+//                            //if BPM increase by more than 10bpm, needle move left by 2px
+//                            //calculate difference in currBPM and prevBPM
+//                            else{
+//                                value[0] = meterValue;
+//                                position = 1; //initial pos
+//                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                Log.d(TAG, "needle msg initial");
+//                            }
+//
+//                        }
 
 
 
@@ -162,6 +221,37 @@ private final int measurementLength = 1000*100;
 
                     }
 
+                    Thread meterthread = new Thread(() -> {
+                        int position;
+
+                        CopyOnWriteArrayList<Measurement<Float>> counter = storeCount.getStdValues();
+                        int countSize = counter.size();
+                        Log.d(TAG, "BPM count: " + countSize);
+
+                        if(countSize%40==0) {
+                            Log.d(TAG, "send positionnn");
+                            CopyOnWriteArrayList<Measurement<Float>> meter = storeBPM.getStdValues();
+
+                            float newBPM = meter.get(meter.size() - 1).measurement;
+                            float prevBPM = meter.get(meter.size() - 2).measurement;
+
+
+                            float diff = newBPM - prevBPM;
+
+                            if (diff < 0) { //BPM decrease,calmer
+                                position = 2; //move right
+                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+                                Log.d(TAG, "needle msg right");
+                                Log.d(TAG, "needle msg diff: " + diff);
+                            } else if (diff > 10) { //BPM increase by more than 10bpm, excited
+                                position = 3; //move left
+                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+                                Log.d(TAG, "needle msg left");
+                                Log.d(TAG, "needle msg diff: " + diff);
+                            }
+                        }
+                    }); meterthread.start();
+
                     //meter
 //                    Thread meterthread = new Thread(() -> {
 //
@@ -176,8 +266,8 @@ private final int measurementLength = 1000*100;
 
 
                     // draw the chart on a separate thread.
-                    Thread chartDrawerThread = new Thread(() -> chartDrawer.draw(store.getStdValues()));
-                    chartDrawerThread.start();
+//                    Thread chartDrawerThread = new Thread(() -> chartDrawer.draw(store.getStdValues()));
+//                    chartDrawerThread.start();
                 });
                 thread.start();
 

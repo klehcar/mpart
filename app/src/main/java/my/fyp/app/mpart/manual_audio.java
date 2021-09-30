@@ -237,6 +237,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
                                 public void onFinish() {
                                     timer = false;
+                                    stopPlayer();
 
                                     cd = new CountDownTimer(7000, 1000) {
                                         public void onTick(long millisUntilFinished) {
@@ -250,7 +251,11 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
                                             }
 
-                                            stopPlayer();
+                                            if (player == null){
+                                                player = MediaPlayer.create(getApplicationContext(), R.raw.clockticking);
+                                            }
+                                            player.start();
+
                                             //vibrator.cancel();
                                             Log.d(TAG, "MA hold running");
 
@@ -260,6 +265,8 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
 
                                         public void onFinish() {
+                                            stopPlayer();
+
                                             cd = new CountDownTimer(exhale, exhale) {
                                                 public void onTick(long millisUntilFinished) {
                                                     f = 1f;

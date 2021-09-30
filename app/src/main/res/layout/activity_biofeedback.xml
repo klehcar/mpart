@@ -7,6 +7,17 @@
     android:background="#F9F6F3"
     tools:context=".BiofeedbackActivity">
 
+    <ImageView
+        android:id="@+id/needle"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/meter"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toStartOf="@+id/meter"
+        app:layout_constraintTop_toTopOf="@+id/meter"
+        app:srcCompat="@drawable/triangle" />
+
     <TextureView
         android:id="@+id/graphTextureViewB"
         android:layout_width="match_parent"
@@ -228,7 +239,7 @@
         android:layout_width="330dp"
         android:layout_height="81dp"
         android:backgroundTint="#F9F6F3"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/meter"

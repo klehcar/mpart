@@ -6,6 +6,7 @@ package my.fyp.app.mpart;
         import android.Manifest;
         import android.animation.AnimatorSet;
         import android.animation.ObjectAnimator;
+        import android.animation.PropertyValuesHolder;
         import android.annotation.SuppressLint;
         import android.content.Context;
         import android.content.Intent;
@@ -89,6 +90,9 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
     private boolean justShared = false;
 
+    ImageView needle;
+
+
 
 
 //    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -122,47 +126,71 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
             }
 
             if (msg.what ==  MESSAGE_METER) {
-
                 String meterMSG = msg.obj.toString();
-                int newBPM = Integer.parseInt(meterMSG);
-                Log.d(TAG, "METER : " + newBPM);
+                int pos = Integer.parseInt(meterMSG);
+                needle = findViewById(R.id.needle);
 
-                if (newBPM >= 80) {
-                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
-                    Log.d(TAG, "POS 1" );
-                } else if (newBPM < 80 && newBPM >= 75) {
-                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
-                    Log.d(TAG, "POS 2" );
-                } else if (newBPM < 75 && newBPM >= 70) {
-                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
-                    Log.d(TAG, "POS 3" );
-                } else if (newBPM < 70 && newBPM >= 65) {
-                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
-                    Log.d(TAG, "POS 4" );
-                } else if(newBPM<65){
-                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.VISIBLE);
-                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
-                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
-                    Log.d(TAG, "POS 5" );
+
+                if(pos == 2){
+                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 80f);
+                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+                    animator.setDuration(2000);
+                    animator.start();
+                    Log.d(TAG, "needle move right");
+
                 }
+                if(pos == 3){
+                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -2f);
+                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+                    animator.setDuration(2000);
+                    animator.start();
+                    Log.d(TAG, "needle move left");
+
+                }
+
+
+
+//                String meterMSG = msg.obj.toString();
+//                int newBPM = Integer.parseInt(meterMSG);
+//                Log.d(TAG, "METER : " + newBPM);
+//
+//
+//                if (newBPM >= 80) {
+//                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.VISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
+//                    Log.d(TAG, "POS 1" );
+//                } else if (newBPM < 80 && newBPM >= 75) {
+//                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.VISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
+//                    Log.d(TAG, "POS 2" );
+//                } else if (newBPM < 75 && newBPM >= 70) {
+//                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.VISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
+//                    Log.d(TAG, "POS 3" );
+//                } else if (newBPM < 70 && newBPM >= 65) {
+//                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.VISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.INVISIBLE);
+//                    Log.d(TAG, "POS 4" );
+//                } else if(newBPM<65){
+//                    ((ImageView) findViewById(R.id.triangle5)).setVisibility(View.VISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle2)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle3)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle4)).setVisibility(View.INVISIBLE);
+//                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
+//                    Log.d(TAG, "POS 5" );
+//                }
             }
         }
     };
