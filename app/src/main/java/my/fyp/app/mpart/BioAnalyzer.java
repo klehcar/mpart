@@ -161,7 +161,7 @@ private final int measurementLength = 1000*100;
 //                        count++;
 //                        storeCount.add(count);
 
-                        int position;
+                        int position=3;
                         float newBPM = l.get(l.size()-1);
                         float prevBPM = l.get(l.size()-2);
                         int countSize = l.size();
@@ -170,19 +170,33 @@ private final int measurementLength = 1000*100;
                         int duration = (int) (1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
                         Log.d(TAG,"Timing: "+ duration);
 
-                        if(duration % 8 ==0) {
-                            if (diff < 0) { //BPM decrease,calmer
-                                position = 2; //move right
+                        if(duration%8==0) {
+                            //if increase bpm, pos -2
+                            //if decrease bpm, pos + 2
+                            if (diff < 0) {
+                                position = position + 2;
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
                                 Log.d(TAG, "needle msg right");
-                                Log.d(TAG, "needle msg diff: " + diff);
-                            } else if (diff > 5) { //BPM increase by more than 10bpm, excited
-                                position = 3; //move left
+                            } else if (diff > 2) {
+                                position = position - 2;
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
                                 Log.d(TAG, "needle msg left");
-                                Log.d(TAG, "needle msg diff: " + diff);
                             }
                         }
+
+//                        if(duration % 12 ==0) {
+//                            if (diff < 0) { //BPM decrease,calmer
+//                                position = 2; //move right
+//                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                Log.d(TAG, "needle msg right");
+//                                Log.d(TAG, "needle msg diff: " + diff);
+//                            } else if (diff > 5) { //BPM increase by more than 10bpm, excited
+//                                position = 3; //move left
+//                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                Log.d(TAG, "needle msg left");
+//                                Log.d(TAG, "needle msg diff: " + diff);
+//                            }
+//                        }
 
 
 
@@ -327,8 +341,8 @@ private final int measurementLength = 1000*100;
                     return;
                 }
 
-                String statusUpdate2 = "Measuring Complete";
-                sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate2);
+//                String statusUpdate2 = "Measuring Complete";
+//                sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate2);
 
                 String currentValue = String.format(
                         Locale.getDefault(),

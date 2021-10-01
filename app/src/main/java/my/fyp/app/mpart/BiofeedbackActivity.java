@@ -29,6 +29,11 @@ package my.fyp.app.mpart;
         import android.view.Surface;
         import android.view.TextureView;
         import android.view.View;
+        import android.view.animation.AlphaAnimation;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
+        import android.view.animation.LinearInterpolator;
+        import android.view.animation.TranslateAnimation;
         import android.widget.Button;
         import android.widget.ImageView;
         import android.widget.TextView;
@@ -131,28 +136,128 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 int pos = Integer.parseInt(meterMSG);
                 needle = findViewById(R.id.needle);
 
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        // a potentially time consuming task
-                        if(pos == 2){
-                            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
-                            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-                            animator.setDuration(3000);
-                            animator.start();
-                            Log.d(TAG, "needle move right");
+                if(pos==1){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==2){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide2);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==3){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide3);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==4){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide4);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==5){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide5);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==6){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide6);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==7){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide7);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==8){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide8);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==9){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide9);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==10){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide10);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==11){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide11);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==12){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide12);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==13){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide13);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==14){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide14);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==15){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide15);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==16){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide16);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==17){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide17);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==18){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide18);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
+                if(pos==19){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide19);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"left");
+                }
+                if(pos==20){
+                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide20);
+                    needle.startAnimation(animSlide);
+                    Log.d(TAG,"right");
+                }
 
-                        }
-                        if(pos == 3){
-                            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -10f);
-                            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-                            animator.setDuration(2000);
-                            animator.start();
-                            Log.d(TAG, "needle move left");
 
-                        }
-
-                    }
-                });
+//                WOKING
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        // a potentially time consuming task
+//                        if(pos == 2){
+//                            moveRight();
+//
+//                        }
+//                        if(pos == 3){
+//                            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -10f);
+//                            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+//                            animator.setDuration(2000);
+//                            animator.start();
+//                            Log.d(TAG, "needle move left");
+//
+//                        }
+//
+//                    }
+//                });
+//                WOKING end
 
 
 
@@ -160,17 +265,32 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 //                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
 //                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
 //                    animator.setDuration(3000);
+//
 //                    animator.start();
-//                    Log.d(TAG, "needle move right");
+
+//                    ObjectAnimator tX = ObjectAnimator.ofFloat(needle, "translationX", 100f);
+//                    tX.setDuration(2000);
+//                    tX.setInterpolator(new LinearInterpolator());
+//                    tX.start();
+
+//                    Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide);
+//                    needle.startAnimation(animSlide);
+//                    TranslateAnimation slidein = new TranslateAnimation(
+//                            Animation.RELATIVE_TO_SELF, 0,
+//                            Animation.RELATIVE_TO_SELF, 40.0f, 0, 0.0f, 0, 0.0f);
+//                    needle.startAnimation(slidein);
+
+
+//                    Log.d(TAG, "needle move right ");
 //
 //                }
 //                if(pos == 3){
-//                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -10f);
-//                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-//                    animator.setDuration(2000);
-//                    animator.start();
+//                    ObjectAnimator tX2 = ObjectAnimator.ofFloat(needle, "translationX", -40f);
+//                    tX2.setDuration(900);
+//                    tX2.setInterpolator(new LinearInterpolator());
+//                    tX2.start();
 //                    Log.d(TAG, "needle move left");
-//
+
 //                }
 
 
@@ -216,6 +336,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 //                    ((ImageView) findViewById(R.id.triangle1)).setVisibility(View.INVISIBLE);
 //                    Log.d(TAG, "POS 5" );
 //                }
+                Log.d(TAG, "needle message executed");
             }
         }
 
@@ -375,9 +496,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);
 
-//        ((TextView)findViewById(R.id.measureText)).setVisibility(View.INVISIBLE);
-        ((TextView)findViewById(R.id.calm)).setVisibility(View.INVISIBLE);
-        ((ImageView)findViewById(R.id.meter)).setVisibility(View.INVISIBLE);
+
         ((ImageView)findViewById(R.id.cover)).setVisibility(View.VISIBLE);
 
 
@@ -398,15 +517,15 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
         hold=7000;
         exhale=8000;
 
-        if(getIntent().getStringExtra("inhale")!=null){
-            inhale = Integer.parseInt(getIntent().getStringExtra("inhale"));
-        }
-        if(getIntent().getStringExtra("exhale")!=null){
-            exhale =Integer.parseInt( getIntent().getStringExtra("exhale"));
-        }
-        if(getIntent().getStringExtra("hold")!=null){
-            hold = Integer.parseInt(getIntent().getStringExtra("hold"));
-        }
+//        if(getIntent().getStringExtra("inhale")!=null){
+//            inhale = Integer.parseInt(getIntent().getStringExtra("inhale"));
+//        }
+//        if(getIntent().getStringExtra("exhale")!=null){
+//            exhale =Integer.parseInt( getIntent().getStringExtra("exhale"));
+//        }
+//        if(getIntent().getStringExtra("hold")!=null){
+//            hold = Integer.parseInt(getIntent().getStringExtra("hold"));
+//        }
 
         selectedTimer = 1000*76;  //initializing timer with 1 minute 16 seconds : 4 cycles
         run=true;
@@ -457,13 +576,13 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 //                .start();
 
         // Botttom sheet dialog
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
-                d.show(getSupportFragmentManager(),"exampleBottomSheet");
-            }
-        });
+//        filter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
+//                d.show(getSupportFragmentManager(),"exampleBottomSheet");
+//            }
+//        });
 
         // back to menu
         back.setOnClickListener(v -> {
@@ -571,6 +690,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                                 player = MediaPlayer.create(getApplicationContext(), R.raw.clockticking);
                                             }
                                             player.start();
+
                                             //vibrator.cancel();
                                             Log.d(TAG, "MA hold running");
 
@@ -623,9 +743,9 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                 stopPlayer();
                             }
                             catch (Exception e){}
-                            Intent in = new Intent(BiofeedbackActivity.this,activity_completed.class);
-                            stopPlayer();
-                            startActivity(in);
+//                            Intent in = new Intent(BiofeedbackActivity.this,activity_completed.class);
+//                            stopPlayer();
+//                            startActivity(in);
                             //Animatoo.animateFade(BiofeedbackActivity.this);
                             finish();
 
@@ -644,13 +764,13 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
 
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
-                d.show(getSupportFragmentManager(),"exampleBottomSheet");
-            }
-        });
+//        filter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FilterBottomSheetDialog d = new FilterBottomSheetDialog();
+//                d.show(getSupportFragmentManager(),"exampleBottomSheet");
+//            }
+//        });
 
 
 
@@ -758,6 +878,14 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
         //scaleDown.setStartDelay(hold);
         scaleDown.start();
 
+    }
+
+    void moveRight(){
+        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+        animator.setDuration(2000);
+        animator.start();
+        Log.d(TAG, "needle move right");
     }
 
 
