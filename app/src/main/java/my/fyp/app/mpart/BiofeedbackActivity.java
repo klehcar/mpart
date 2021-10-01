@@ -104,6 +104,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
     private final Handler mainHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
+
             super.handleMessage(msg);
 
 
@@ -130,23 +131,47 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 int pos = Integer.parseInt(meterMSG);
                 needle = findViewById(R.id.needle);
 
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        // a potentially time consuming task
+                        if(pos == 2){
+                            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
+                            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+                            animator.setDuration(3000);
+                            animator.start();
+                            Log.d(TAG, "needle move right");
 
-                if(pos == 2){
-                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 80f);
-                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-                    animator.setDuration(2000);
-                    animator.start();
-                    Log.d(TAG, "needle move right");
+                        }
+                        if(pos == 3){
+                            PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -10f);
+                            ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+                            animator.setDuration(2000);
+                            animator.start();
+                            Log.d(TAG, "needle move left");
 
-                }
-                if(pos == 3){
-                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -2f);
-                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-                    animator.setDuration(2000);
-                    animator.start();
-                    Log.d(TAG, "needle move left");
+                        }
 
-                }
+                    }
+                });
+
+
+
+//                if(pos == 2){
+//                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
+//                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+//                    animator.setDuration(3000);
+//                    animator.start();
+//                    Log.d(TAG, "needle move right");
+//
+//                }
+//                if(pos == 3){
+//                    PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", -10f);
+//                    ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+//                    animator.setDuration(2000);
+//                    animator.start();
+//                    Log.d(TAG, "needle move left");
+//
+//                }
 
 
 
@@ -193,6 +218,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 //                }
             }
         }
+
     };
 
     private final CameraService cameraService = new CameraService(this, mainHandler);
@@ -527,6 +553,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
                                 public void onFinish() {
                                     timer = false;
+                                    stopPlayer();
 
                                     cd = new CountDownTimer(7000, 1000) {
                                         public void onTick(long millisUntilFinished) {
@@ -540,7 +567,10 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
                                             }
 
-                                            stopPlayer();
+                                            if (player == null){
+                                                player = MediaPlayer.create(getApplicationContext(), R.raw.clockticking);
+                                            }
+                                            player.start();
                                             //vibrator.cancel();
                                             Log.d(TAG, "MA hold running");
 
@@ -550,6 +580,8 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
                                         public void onFinish() {
+                                            stopPlayer();
+
                                             cd = new CountDownTimer(exhale, exhale) {
                                                 public void onTick(long millisUntilFinished) {
                                                     f = 1f;

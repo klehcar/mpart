@@ -2,6 +2,8 @@ package my.fyp.app.mpart;
 
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
@@ -81,6 +83,9 @@ private final int measurementLength = 1000*100;
         storeCount = new MeasureStore();
         storeBPM.add(0);
         storeBPM.add(0);
+        CopyOnWriteArrayList<Float> l = new CopyOnWriteArrayList<Float>();
+        l.add(0f);
+        l.add(0f);
 
         detectedValleys = 0;
 
@@ -148,12 +153,37 @@ private final int measurementLength = 1000*100;
 
                         //v2
                         BPM = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) ;
+                        l.add(BPM);
 
-                        int meterValue = (int)BPM;
-                        storeBPM.add(meterValue);
-                        Log.d(TAG, "BPM msg: " + Integer.toString(meterValue));
-                        count++;
-                        storeCount.add(count);
+//                        int meterValue = (int)BPM;
+//                        storeBPM.add(meterValue);
+//                        Log.d(TAG, "BPM msg: " + Integer.toString(meterValue));
+//                        count++;
+//                        storeCount.add(count);
+
+                        int position;
+                        float newBPM = l.get(l.size()-1);
+                        float prevBPM = l.get(l.size()-2);
+                        int countSize = l.size();
+
+                        float diff = newBPM - prevBPM;
+                        int duration = (int) (1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
+                        Log.d(TAG,"Timing: "+ duration);
+
+                        if(duration % 8 ==0) {
+                            if (diff < 0) { //BPM decrease,calmer
+                                position = 2; //move right
+                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+                                Log.d(TAG, "needle msg right");
+                                Log.d(TAG, "needle msg diff: " + diff);
+                            } else if (diff > 5) { //BPM increase by more than 10bpm, excited
+                                position = 3; //move left
+                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+                                Log.d(TAG, "needle msg left");
+                                Log.d(TAG, "needle msg diff: " + diff);
+                            }
+                        }
+
 
 
 
@@ -221,36 +251,42 @@ private final int measurementLength = 1000*100;
 
                     }
 
-                    Thread meterthread = new Thread(() -> {
-                        int position;
-
-                        CopyOnWriteArrayList<Measurement<Float>> counter = storeCount.getStdValues();
-                        int countSize = counter.size();
-                        Log.d(TAG, "BPM count: " + countSize);
-
-                        if(countSize%40==0) {
-                            Log.d(TAG, "send positionnn");
-                            CopyOnWriteArrayList<Measurement<Float>> meter = storeBPM.getStdValues();
-
-                            float newBPM = meter.get(meter.size() - 1).measurement;
-                            float prevBPM = meter.get(meter.size() - 2).measurement;
-
-
-                            float diff = newBPM - prevBPM;
-
-                            if (diff < 0) { //BPM decrease,calmer
-                                position = 2; //move right
-                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
-                                Log.d(TAG, "needle msg right");
-                                Log.d(TAG, "needle msg diff: " + diff);
-                            } else if (diff > 10) { //BPM increase by more than 10bpm, excited
-                                position = 3; //move left
-                                sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
-                                Log.d(TAG, "needle msg left");
-                                Log.d(TAG, "needle msg diff: " + diff);
-                            }
-                        }
-                    }); meterthread.start();
+//                    Thread meterthread = new Thread(() -> {
+//
+//
+////                        CopyOnWriteArrayList<Measurement<Float>> counter = storeCount.getStdValues();
+////                        CopyOnWriteArrayList<Measurement<Float>> meter = storeBPM.getStdValues();
+////                        int countSize = meter.size();
+////                        Log.d(TAG, "BPM count: " + countSize);
+//
+//
+////                            Log.d(TAG, "send positionnn");
+//
+//
+////                            float newBPM = meter.get(meter.size() - 1).measurement;
+////                            float prevBPM = meter.get(meter.size() - 2).measurement;
+//                        int position;
+//                            float newBPM = l.get(l.size()-1);
+//                            float prevBPM = l.get(l.size()-2);
+//                        int countSize = l.size();
+//
+//                            float diff = newBPM - prevBPM;
+//
+//                            if(countSize / 200 ==0) {
+//                                if (diff < 0) { //BPM decrease,calmer
+//                                    position = 2; //move right
+//                                    sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                    Log.d(TAG, "needle msg right");
+//                                    Log.d(TAG, "needle msg diff: " + diff);
+//                                } else if (diff > 5) { //BPM increase by more than 10bpm, excited
+//                                    position = 3; //move left
+//                                    sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
+//                                    Log.d(TAG, "needle msg left");
+//                                    Log.d(TAG, "needle msg diff: " + diff);
+//                                }
+//                            }
+//
+//                    }); meterthread.start();
 
                     //meter
 //                    Thread meterthread = new Thread(() -> {
