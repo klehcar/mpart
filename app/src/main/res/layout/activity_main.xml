@@ -6,16 +6,24 @@
     android:layout_height="match_parent"
     android:descendantFocusability="afterDescendants"
     android:focusable="auto"
+    android:background="#F9F6F3"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            app:menu="@menu/menu"-->
+<!--            app:title="Record Heart Rate" />-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:fontFamily="@font/inter_bold"
             app:menu="@menu/menu"
             app:title="Record Heart Rate" />
 
@@ -57,8 +65,11 @@
             android:layout_height="48dp"
             android:background="@drawable/rounded_corner"
             android:backgroundTint="#3EABF9"
+            android:fontFamily="@font/inter_medium"
             android:text="Back to Menu"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -71,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:fontFamily="@font/inter_bold"
             android:hint="@string/measure_title1"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -86,6 +98,7 @@
             android:layout_width="305dp"
             android:layout_height="65dp"
             android:layout_marginTop="28dp"
+            android:fontFamily="@font/inter_medium"
             android:hint="@string/output_hint"
             android:textAlignment="center"
             android:textSize="14sp"
@@ -110,6 +123,7 @@
 
             android:layout_marginTop="2dp"
             android:focusable="false"
+            android:fontFamily="@font/inter_medium"
             android:importantForAutofill="no"
             android:inputType="none"
             android:textAlignment="center"

@@ -99,7 +99,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
             hold = Integer.parseInt(getIntent().getStringExtra("hold"));
         }
 
-        selectedTimer = 1000*76;  //initializing timer with 1 minute 16 seconds : 4 cycles -> 1000 * #seconds
+        selectedTimer = 1000*304;  //initializing timer with 1 minute 16 seconds : 4 cycles -> 1000 * #seconds
         run=true;
         isRunning=false;
 
@@ -199,11 +199,11 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
                     filter.setVisibility(View.INVISIBLE); // hide filter
                     back.setVisibility(View.INVISIBLE); // hide back chevron
-                    layout.setBackgroundColor(Color.parseColor("#F9F6F3"));
+
 
                     isRunning=true;
                     timer=true;
-                    startButton.setText("STOP");
+                    startButton.setText("Stop");
                     int extrahold =0;
 
 
@@ -214,7 +214,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
 
                             cd = new CountDownTimer(inhale, inhale) {
                                 public void onTick(long millisUntilFinished) {
-                                    startButton.setText("STOP");
+                                    startButton.setText("Stop");
 
                                     guideTxt.setText("Inhale");
                                     f = 3f;

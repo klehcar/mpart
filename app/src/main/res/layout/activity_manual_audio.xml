@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".manual_audio"
+    android:background="#F9F2EA"
     android:id="@+id/constraintLayout">
 
     <Button
@@ -14,8 +15,11 @@
         android:layout_marginBottom="56dp"
         android:background="@drawable/rounded_corner"
         android:backgroundTint="#3EABF9"
+        android:fontFamily="@font/inter_medium"
         android:text="Start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -78,10 +82,11 @@
         android:id="@+id/guideTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
         android:text="Breathe"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFFFF"
-        android:textSize="13sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/circleText"
         app:layout_constraintEnd_toEndOf="@+id/circleText"
         app:layout_constraintStart_toStartOf="@+id/circleText"

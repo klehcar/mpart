@@ -33,7 +33,7 @@ class BioAnalyzer {
 
     private final int measurementInterval = 45;
 //    private final int measurementLength = 15000; // ensure the number of data points is the power of two
-private final int measurementLength = 1000*100;
+private final int measurementLength = 1000*400;
     private final int clipLength = 3500;
 
     private int detectedValleys = 0;
@@ -86,6 +86,8 @@ private final int measurementLength = 1000*100;
         CopyOnWriteArrayList<Float> l = new CopyOnWriteArrayList<Float>();
         l.add(0f);
         l.add(0f);
+        CopyOnWriteArrayList<Integer> posList = new CopyOnWriteArrayList<Integer>();
+        posList.add(0);
 
         detectedValleys = 0;
 
@@ -161,28 +163,46 @@ private final int measurementLength = 1000*100;
 //                        count++;
 //                        storeCount.add(count);
 
-                        int position=3;
-                        float newBPM = l.get(l.size()-1);
-                        float prevBPM = l.get(l.size()-2);
+                        float newBPM = l.get(l.size()-1); //last element
+                        float prevBPM = l.get(l.size()-2); //second last element
                         int countSize = l.size();
 
                         float diff = newBPM - prevBPM;
                         int duration = (int) (1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
                         Log.d(TAG,"Timing: "+ duration);
 
-                        if(duration%8==0) {
+                        int position = posList.get(posList.size()-1);
+
+                        if(duration % 15 ==0) {
                             //if increase bpm, pos -2
                             //if decrease bpm, pos + 2
                             if (diff < 0) {
-                                position = position + 2;
+                                if (position % 2 == 0) {
+                                    position = position + 2;
+                                }
+                                else{
+                                    position = position + 1;
+                                }
+
+                                posList.add(position);
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
-                                Log.d(TAG, "needle msg right");
-                            } else if (diff > 2) {
-                                position = position - 2;
+                                Log.d(TAG,"Position sent: "+ position);
+                                Log.d(TAG, "calmer");
+                            } else if (diff > 2 && position>=2) {
+                                if (position % 2 == 0) {
+                                    position = position - 1;
+                                }
+                                else{
+                                    position = position - 2;
+                                }
+
+                                posList.add(position);
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
-                                Log.d(TAG, "needle msg left");
+                                Log.d(TAG,"Position sent: "+ position);
+                                Log.d(TAG, "redder");
                             }
                         }
+
 
 //                        if(duration % 12 ==0) {
 //                            if (diff < 0) { //BPM decrease,calmer

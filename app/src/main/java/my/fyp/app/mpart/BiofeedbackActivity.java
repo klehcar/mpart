@@ -139,102 +139,102 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 if(pos==1){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left1");
                 }
                 if(pos==2){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide2);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right2");
                 }
                 if(pos==3){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide3);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left3");
                 }
                 if(pos==4){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide4);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right4");
                 }
                 if(pos==5){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide5);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left5");
                 }
                 if(pos==6){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide6);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right6");
                 }
                 if(pos==7){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide7);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left7");
                 }
                 if(pos==8){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide8);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right8");
                 }
                 if(pos==9){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide9);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left9");
                 }
                 if(pos==10){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide10);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 10");
                 }
                 if(pos==11){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide11);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left 11");
                 }
                 if(pos==12){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide12);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 12");
                 }
                 if(pos==13){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide13);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left 13");
                 }
                 if(pos==14){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide14);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 14");
                 }
                 if(pos==15){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide15);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left 15");
                 }
                 if(pos==16){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide16);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 16");
                 }
                 if(pos==17){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide17);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left 17");
                 }
                 if(pos==18){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide18);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 18");
                 }
                 if(pos==19){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide19);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"left");
+                    Log.d(TAG,"left 19");
                 }
                 if(pos==20){
                     Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide20);
                     needle.startAnimation(animSlide);
-                    Log.d(TAG,"right");
+                    Log.d(TAG,"right 20");
                 }
 
 
@@ -527,7 +527,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 //            hold = Integer.parseInt(getIntent().getStringExtra("hold"));
 //        }
 
-        selectedTimer = 1000*76;  //initializing timer with 1 minute 16 seconds : 4 cycles
+        selectedTimer = 1000*304;  //initializing timer with 304 seconds
         run=true;
         isRunning=false;
 
@@ -638,7 +638,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
                     isRunning=true;
                     timer=true;
-                    startButton.setText("STOP");
+                    startButton.setText("Stop");
                     int extrahold =0;
 
 
@@ -649,7 +649,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
                             cd = new CountDownTimer(inhale, inhale) {
                                 public void onTick(long millisUntilFinished) {
-                                    startButton.setText("STOP");
+                                    startButton.setText("Stop");
 
                                     guideTxt.setText("Inhale");
                                     f = 3f;
@@ -743,9 +743,9 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                 stopPlayer();
                             }
                             catch (Exception e){}
-//                            Intent in = new Intent(BiofeedbackActivity.this,activity_completed.class);
-//                            stopPlayer();
-//                            startActivity(in);
+                            Intent in = new Intent(BiofeedbackActivity.this,activity_completed.class);
+                            stopPlayer();
+                            startActivity(in);
                             //Animatoo.animateFade(BiofeedbackActivity.this);
                             finish();
 

@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28020833333333334" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.28020833333333334" />
         <entry key="app/src/main/res/drawable/meter_square.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/drawable/meter_view.xml" value="0.3194444444444444" />
         <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.215625" />
-        <entry key="app/src/main/res/layout/activity_biofeedback.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_biofeedback.xml" value="0.37303785780240073" />
         <entry key="app/src/main/res/layout/activity_completed.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/activity_main_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_manual_audio.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_manual_audiovibrate.xml" value="0.19895833333333332" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.28020833333333334" />
       </map>
     </option>
   </component>
