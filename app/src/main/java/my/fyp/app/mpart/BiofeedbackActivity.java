@@ -501,7 +501,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
         ///////////////////////////// #2 for breathing guide
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 //        ActivityCompat.requestPermissions(this,
 //                new String[]{Manifest.permission.VIBRATE},
@@ -542,7 +542,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
         f = 1f;
 
-        startIntroAnimation(); // delete later
+//        startIntroAnimation(); // delete later
 
 
 
@@ -602,7 +602,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                     Intent in = new Intent(BiofeedbackActivity.this, activity_completed.class);
 
 
-                    vibrator.cancel();
+//                    vibrator.cancel();
                     startActivity(in);
                     if (player!=null){
                         player.stop();
@@ -622,17 +622,17 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                     timer=false;
                     isRunning=false;
                     cd.cancel();
-                    Log.d(TAG, "MA stop running");
+                    Log.d(TAG, "AVB stop running");
 
                 }
                 else{
                     ////// breathing session starts //////
                     ((TextView)findViewById(R.id.measureText)).setVisibility(View.INVISIBLE);
                     ((ImageView)findViewById(R.id.cover)).setVisibility(View.INVISIBLE);
-                    ((TextView)findViewById(R.id.calm)).setVisibility(View.VISIBLE);
-                    ((ImageView)findViewById(R.id.meter)).setVisibility(View.VISIBLE);
+//                    ((TextView)findViewById(R.id.calm)).setVisibility(View.VISIBLE);
+//                    ((ImageView)findViewById(R.id.meter)).setVisibility(View.VISIBLE);
 
-                    filter.setVisibility(View.INVISIBLE); // hide filter
+//                    filter.setVisibility(View.INVISIBLE); // hide filter
                     back.setVisibility(View.INVISIBLE); // hide back chevron
                     //layout.setBackgroundColor(Color.parseColor("#F9F6F3"));
 
@@ -646,6 +646,8 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
                         @Override
                         public void onTick(long l) {
+                                            runOnUiThread(new Runnable() {
+                    public void run() {
 
                             cd = new CountDownTimer(inhale, inhale) {
                                 public void onTick(long millisUntilFinished) {
@@ -659,7 +661,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.inhalesound);
                                     }
                                     player.start();
-                                    Log.d(TAG, "MA inhale running");
+                                    Log.d(TAG, "AVB inhale running");
 
 
                                     //vibration
@@ -692,7 +694,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                             player.start();
 
                                             //vibrator.cancel();
-                                            Log.d(TAG, "MA hold running");
+                                            Log.d(TAG, "AVB hold running");
 
 
                                         }
@@ -733,7 +735,9 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                 }
                             }.start();
                             stopPlayer();
-                        }
+                                                }
+                });
+                        } //onTick ends
 
                         @Override
                         public void onFinish() {
@@ -777,17 +781,17 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
     }
-
-    private void Vibrate(long millisecond){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            ((Vibrator)getSystemService(VIBRATOR_SERVICE))
-                    .vibrate(VibrationEffect.createOneShot(millisecond,VibrationEffect.DEFAULT_AMPLITUDE));
-
-        }
-        else{
-            ((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(millisecond);
-        }
-    }
+//
+//    private void Vibrate(long millisecond){
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+//            ((Vibrator)getSystemService(VIBRATOR_SERVICE))
+//                    .vibrate(VibrationEffect.createOneShot(millisecond,VibrationEffect.DEFAULT_AMPLITUDE));
+//
+//        }
+//        else{
+//            ((Vibrator)getSystemService(VIBRATOR_SERVICE)).vibrate(millisecond);
+//        }
+//    }
 
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -805,65 +809,65 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
 
 
-    private void startIntroAnimation(){
-        ViewAnimator
-                .animate(guideTxt)
-                .scale(0, 1)
-                .duration(1500)
-                .onStart(new AnimationListener.Start() {
-                    @Override
-                    public void onStart() {
-                        guideTxt.setText("Breathe");
-                    }
-                })
-                .start();
-    }
+//    private void startIntroAnimation(){
+//        ViewAnimator
+//                .animate(guideTxt)
+//                .scale(0, 1)
+//                .duration(1500)
+//                .onStart(new AnimationListener.Start() {
+//                    @Override
+//                    public void onStart() {
+//                        guideTxt.setText("Breathe");
+//                    }
+//                })
+//                .start();
+//    }
 
-    private void startAnimation(){
-        ViewAnimator
-                .animate(imageView)
-                .alpha(0, 1)
-                .onStart(new AnimationListener.Start() {
-                    @Override
-                    public void onStart() {
-                        guideTxt.setText("Inhale..Exhale");
-                    }
-                })
-                .decelerate()
-                .duration(1000)
-                .thenAnimate(imageView)
-                .scale(0.02f, 1.5f, 0.02f)
-                .rotation(360)
-                .repeatCount(5)
-                .accelerate()
-                .duration(5000)
-                .onStop(new AnimationListener.Stop() {
-                    @Override
-                    public void onStop() {
-                        guideTxt.setText("Good Job");
-                        imageView.setScaleX(1.0f);
-                        imageView.setScaleY(1.0f);
-
-
-                        new CountDownTimer(2000, 1000) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                //put code to show ticking...1...2..3..
-
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                startActivity( new Intent(getApplicationContext(), BiofeedbackActivity.class));
-                                finish();
-
-                            }
-                        }.start();
-                    }
-                })
-                .start();
-
-    }
+//    private void startAnimation(){
+//        ViewAnimator
+//                .animate(imageView)
+//                .alpha(0, 1)
+//                .onStart(new AnimationListener.Start() {
+//                    @Override
+//                    public void onStart() {
+//                        guideTxt.setText("Inhale..Exhale");
+//                    }
+//                })
+//                .decelerate()
+//                .duration(1000)
+//                .thenAnimate(imageView)
+//                .scale(0.02f, 1.5f, 0.02f)
+//                .rotation(360)
+//                .repeatCount(5)
+//                .accelerate()
+//                .duration(5000)
+//                .onStop(new AnimationListener.Stop() {
+//                    @Override
+//                    public void onStop() {
+//                        guideTxt.setText("Good Job");
+//                        imageView.setScaleX(1.0f);
+//                        imageView.setScaleY(1.0f);
+//
+//
+//                        new CountDownTimer(2000, 1000) {
+//                            @Override
+//                            public void onTick(long millisUntilFinished) {
+//                                //put code to show ticking...1...2..3..
+//
+//                            }
+//
+//                            @Override
+//                            public void onFinish() {
+//                                startActivity( new Intent(getApplicationContext(), BiofeedbackActivity.class));
+//                                finish();
+//
+//                            }
+//                        }.start();
+//                    }
+//                })
+//                .start();
+//
+//    }
 
     void performAnimation(ImageView im, float f, int timer, int hold) {
         ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(im, "scaleX", f);
@@ -880,13 +884,13 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
     }
 
-    void moveRight(){
-        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
-        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
-        animator.setDuration(2000);
-        animator.start();
-        Log.d(TAG, "needle move right");
-    }
+//    void moveRight(){
+//        PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("translationX", 40f);
+//        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(needle, pvhX);
+//        animator.setDuration(2000);
+//        animator.start();
+//        Log.d(TAG, "needle move right");
+//    }
 
 
 

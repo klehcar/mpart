@@ -191,7 +191,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                     timer=false;
                     isRunning=false;
                     cd.cancel();
-                    Log.d(TAG, "MA stop running");
+                    Log.d(TAG, "AV stop running");
 
                 }
                 else{
@@ -224,7 +224,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.inhalesound);
                                     }
                                     player.start();
-                                    Log.d(TAG, "MA inhale running");
+                                    Log.d(TAG, "AV inhale running");
 
 
                                     //vibration
@@ -257,7 +257,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                             player.start();
 
                                             //vibrator.cancel();
-                                            Log.d(TAG, "MA hold running");
+                                            Log.d(TAG, "AV hold running");
 
 
                                         }
@@ -278,7 +278,7 @@ public class manual_audio extends AppCompatActivity implements FilterBottomSheet
                                                         player = MediaPlayer.create(getApplicationContext(), R.raw.exhalesound);
                                                     }
                                                     player.start();
-                                                    Log.d(TAG, "MA: exhale running");
+                                                    Log.d(TAG, "AV exhale running");
                                                 }
 
 

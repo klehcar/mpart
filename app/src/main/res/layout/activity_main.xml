@@ -69,13 +69,13 @@
             android:text="Back to Menu"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.907" />
+            app:layout_constraintVertical_bias="0.92" />
 
         <TextView
             android:id="@+id/measureTitle"
@@ -95,8 +95,8 @@
 
         <TextView
             android:id="@+id/measureText1"
-            android:layout_width="305dp"
-            android:layout_height="65dp"
+            android:layout_width="308dp"
+            android:layout_height="91dp"
             android:layout_marginTop="28dp"
             android:fontFamily="@font/inter_medium"
             android:hint="@string/output_hint"
@@ -110,7 +110,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="56dp"
             android:src="@drawable/instruction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

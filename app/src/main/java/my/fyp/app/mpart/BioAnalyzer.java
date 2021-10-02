@@ -138,7 +138,7 @@ private final int measurementLength = 1000*400;
 //                        sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, currentValue);
                         String startMSG = "Press the START button to begin breathing session";
                         sendMessage(BiofeedbackActivity.MESSAGE_UPDATE_REALTIME, startMSG);
-                        Log.d(TAG, "REALTIME:" + currentValue);
+                        Log.d(TAG, "Realtime " + currentValue);
 
 
 
@@ -168,12 +168,13 @@ private final int measurementLength = 1000*400;
                         int countSize = l.size();
 
                         float diff = newBPM - prevBPM;
-                        int duration = (int) (1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
+                        int duration = Math.round(1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
                         Log.d(TAG,"Timing: "+ duration);
+                        Log.d(TAG,"Change in BPM: "+ diff);
 
                         int position = posList.get(posList.size()-1);
 
-                        if(duration % 15 ==0) {
+                        if(detectedValleys % 20 ==0) {
                             //if increase bpm, pos -2
                             //if decrease bpm, pos + 2
                             if (diff < 0) {
@@ -188,7 +189,7 @@ private final int measurementLength = 1000*400;
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
                                 Log.d(TAG,"Position sent: "+ position);
                                 Log.d(TAG, "calmer");
-                            } else if (diff > 2 && position>=2) {
+                            } else if (diff > 0.05 && position>=2) {
                                 if (position % 2 == 0) {
                                     position = position - 1;
                                 }
