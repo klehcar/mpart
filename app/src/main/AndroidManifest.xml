@@ -25,7 +25,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity_completed"
             android:screenOrientation="portrait"/>
-        <activity android:name=".manual_audio"
+        <activity android:name=".Audiovisual"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>

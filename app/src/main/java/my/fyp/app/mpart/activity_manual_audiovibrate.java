@@ -58,10 +58,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
 
     MediaPlayer player;
     Vibrator vibrator;
-//    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-//    private static final int REQUEST_CODE_VIBRATE = 111;
-    //final long[] pattern = {0,1000};
-
 
 
     @Override
@@ -70,11 +66,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
         setContentView(R.layout.activity_manual_audiovibrate);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-//        ActivityCompat.requestPermissions(this,
-//                new String[]{Manifest.permission.VIBRATE},
-//                REQUEST_CODE_VIBRATE);
-
 
 
         //in miliseconds 1000ms = 1s
@@ -99,16 +90,10 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
         bg1 = findViewById(R.id.circleAnimate);
         filter = findViewById(R.id.slidersIcon);
         back = findViewById(R.id.backIcon);
-        imageView = findViewById(R.id.lotusImage); //not using
         guideTxt = findViewById(R.id.guideTxt);
         layout = findViewById(R.id.constraintLayout);
 
-
         f = 1f;
-
-        startIntroAnimation(); // delete later
-
-
 
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -118,23 +103,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
             }
         });
 
-
-
-//        ViewAnimator
-//                .animate(imageView)
-//                .translationY(-1000, 0)
-//                .alpha(0,1)
-//                //.andAnimate(text)
-//                .dp().translationX(-20, 0)
-//                .decelerate()
-//                .duration(2000)
-//                .thenAnimate(imageView)
-//                .scale(1f, 0.5f, 1f)
-//                .rotation(270)
-//                .repeatCount(3) //starts from 0
-//                .accelerate()
-//                .duration(2000) //in miliseconds 1000ms = 1s
-//                .start();
 
         // Botttom sheet dialog
         filter.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +140,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                     startActivity(in);
 
                     finish();
-                    //Animatoo.animateFade(manual_audio.this);
 
                     cdMain.cancel();
                     timer=false;
@@ -206,7 +173,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
 
                                     guideTxt.setText("Inhale");
                                     f = 3f;
-                                    //performAnimation(bg2, f, inhale, hold);
                                     performAnimation(bg1, f - 0.5f, inhale, hold);
                                     if (player == null){
                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundin);
@@ -214,11 +180,9 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                     player.start();
                                     Log.d(TAG, "MAV inhale running");
 
-
                                     //vibration
                                     Vibrate(10000);
 
-//                                    vibrator.vibrate(1000);
                                 }
 
 
@@ -233,7 +197,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                             vibrator.cancel();
                                             Log.d(TAG, "MAV hold running");
 
-
                                         }
 
 
@@ -244,7 +207,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                                     f = 1f;
                                                     guideTxt.setText("Exhale");
 
-                                                    //performAnimation(bg2, f, exhale, hold);
                                                     performAnimation(bg1, f, exhale, hold);
                                                     if (player == null){
                                                         player = MediaPlayer.create(getApplicationContext(), R.raw.soundout);
@@ -252,9 +214,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                                     player.start();
                                                     Log.d(TAG, "MAV exhale running");
                                                 }
-
-
-
 
                                                 public void onFinish() {
 
@@ -264,8 +223,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                         }
 
                                     }.start();
-
-
 
                                 }
                             }.start();
@@ -283,7 +240,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                             Intent in = new Intent(activity_manual_audiovibrate.this,activity_completed.class);
                             stopPlayer();
                             startActivity(in);
-                            //Animatoo.animateFade(MainActivity.this);
                             finish();
 
                         }
@@ -292,9 +248,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                 }
 
             }
-
-
-
 
 
         });
@@ -311,8 +264,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
 
 
 
-
-
     }
 
     private void Vibrate(long millisecond){
@@ -326,20 +277,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
         }
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == REQUEST_CODE_VIBRATE) {
-//            if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-//                Snackbar.make(
-//                        findViewById(R.id.constraintLayout),
-//                        getString(R.string.cameraPermissionRequired),
-//                        Snackbar.LENGTH_LONG
-//                ).show();
-//            }
-//        }
-//    }
-
     //        STOP sound during hold breath
     private void stopPlayer() {
         if (player != null){
@@ -348,19 +285,6 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
         }
     }
 
-    private void startIntroAnimation(){
-        ViewAnimator
-                .animate(guideTxt)
-                .scale(0, 1)
-                .duration(1500)
-                .onStart(new AnimationListener.Start() {
-                    @Override
-                    public void onStart() {
-                        guideTxt.setText("Breathe");
-                    }
-                })
-                .start();
-    }
 
     private void startAnimation(){
         ViewAnimator

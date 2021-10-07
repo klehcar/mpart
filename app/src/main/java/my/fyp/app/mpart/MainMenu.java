@@ -2,20 +2,15 @@ package my.fyp.app.mpart;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainMenu extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
@@ -38,9 +33,6 @@ public class MainMenu extends AppCompatActivity implements EasyPermissions.Permi
         }
 
 
-
-
-
         Button recordButton = findViewById(R.id.record);
         recordButton.setOnClickListener(v -> {
             Intent intent = new Intent (this, MainActivity.class);
@@ -49,7 +41,7 @@ public class MainMenu extends AppCompatActivity implements EasyPermissions.Permi
 
         Button mabutton = findViewById(R.id.manual_audio);
         mabutton.setOnClickListener(v -> {
-            Intent intent = new Intent (this, manual_audio.class);
+            Intent intent = new Intent (this, Audiovisual.class);
             startActivity(intent);
         });
 
@@ -84,38 +76,5 @@ public class MainMenu extends AppCompatActivity implements EasyPermissions.Permi
 
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode)
-//        {
-//            case REQUEST_CODE_CAMERA: {
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-//                {
-//                    Toast.makeText(MainMenu.this, "Permission granted.", Toast.LENGTH_SHORT).show();
-//                    //reload my activity with permission granted or use the features what required the permission
-//                    finish();
-//                    startActivity(getIntent());
-//                } else
-//                {
-//                    Toast.makeText(MainMenu.this, "The app was not allowed to access your phone camera. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//            case REQUEST_CODE_VIBRATE: {
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-//                {
-//                    Toast.makeText(MainMenu.this, "Permission granted.", Toast.LENGTH_SHORT).show();
-//                    //reload my activity with permission granted or use the features what required the permission
-//                    finish();
-//                    startActivity(getIntent());
-//                } else
-//                {
-//                    Toast.makeText(MainMenu.this, "The app was not allowed to get your phone vibration. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//
-//        }
-//
-//    }
+
 }

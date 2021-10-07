@@ -96,7 +96,6 @@ class OutputAnalyzer {
                         detectedValleys = detectedValleys + 1;
                         valleys.add(store.getLastTimestamp().getTime());
                         // in 13 seconds (13000 milliseconds), I expect 15 valleys. that would be a pulse of 15 / 130000 * 60 * 1000 = 69
-                        // most important!
 
                         String currentValue = String.format(
                                 Locale.getDefault(),
@@ -109,13 +108,9 @@ class OutputAnalyzer {
 
                         sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
 
-                        //added
                         String statusUpdate = "Measuring...";
                         sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate);
                     }
-
-                    //added for measureTitle
-                    //((TextView)activity.findViewById(R.id.measureTitle)).setText("Measuring...");
 
 
                     // draw the chart on a separate thread.
@@ -124,7 +119,7 @@ class OutputAnalyzer {
                 });
                 thread.start();
 
-                //added for beep
+                //beep during measurement
                 if (player == null){
                     player = MediaPlayer.create(activity.getApplicationContext(), R.raw.beep);
                 }
@@ -167,7 +162,6 @@ class OutputAnalyzer {
                 returnValueSb.append(currentValue);
                 returnValueSb.append(activity.getString(R.string.row_separator));
 
-                //rachel
                 float breatheRate = (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f))) /4;
 
                 String currentValue2 = String.format(
@@ -182,64 +176,8 @@ class OutputAnalyzer {
                 returnValueSb2.append(currentValue2);
                 returnValueSb2.append(activity.getString(R.string.row_separator));
 
-                //added for measureTitle
-                //((TextView)activity.findViewById(R.id.measureTitle)).setText("Measuring Complete");
-
-
-
-
-
-
-                // look for "drops" of 0.15 - 0.75 in the value
-                // a drop may take 2-3 ticks.
-                // int dropCount = 0;
-                // for (int stdValueIdx = 4; stdValueIdx < stdValues.size(); stdValueIdx++) {
-                //     if (((stdValues.get(stdValueIdx - 2).measurement - stdValues.get(stdValueIdx).measurement) > dropHeight) &&
-                //             !((stdValues.get(stdValueIdx - 3).measurement - stdValues.get(stdValueIdx - 1).measurement) > dropHeight) &&
-                //            !((stdValues.get(stdValueIdx - 4).measurement - stdValues.get(stdValueIdx - 2).measurement) > dropHeight)
-                //    ) {
-                //        dropCount++;
-                //    }
-                // }
-
-                // returnValueSb.append(activity.getString(R.string.detected_pulse));
-                // returnValueSb.append(activity.getString(R.string.separator));
-                // returnValueSb.append((float) dropCount / ((float) (measurementLength - clipLength) / 1000f / 60f));
-                // returnValueSb.append(activity.getString(R.string.row_separator));
-//// commented out timeline
-//                returnValueSb.append(activity.getString(R.string.raw_values));
-//                returnValueSb.append(activity.getString(R.string.row_separator));
-//
-//
-//                for (int stdValueIdx = 0; stdValueIdx < stdValues.size(); stdValueIdx++) {
-//                    // stdValues.forEach((value) -> { // would require API level 24 instead of 21.
-//                    Measurement<Float> value = stdValues.get(stdValueIdx);
-//                    String timeStampString =
-//                            new SimpleDateFormat(
-//                                    activity.getString(R.string.dateFormatGranular),
-//                                    Locale.getDefault()
-//                            ).format(value.timestamp);
-//                    returnValueSb.append(timeStampString);
-//                    returnValueSb.append(activity.getString(R.string.separator));
-//                    returnValueSb.append(value.measurement);
-//                    returnValueSb.append(activity.getString(R.string.row_separator));
-//                }
-//
-//                returnValueSb.append(activity.getString(R.string.output_detected_peaks_header));
-//                returnValueSb.append(activity.getString(R.string.row_separator));
-//
-//                // add detected valleys location
-//                for (long tick : valleys) {
-//                    returnValueSb.append(tick);
-//                    returnValueSb.append(activity.getString(R.string.row_separator));
-//                }
 
                 sendMessage(MainActivity.MESSAGE_UPDATE_FINAL,currentValue2);
-                //sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb.toString());
-
-
-                //rachel
-                //sendMessage(MainActivity.MESSAGE_UPDATE_FINAL, returnValueSb2.toString());
 
                 cameraService.stop();
             }

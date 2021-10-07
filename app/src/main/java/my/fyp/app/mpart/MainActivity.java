@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
 
             if (msg.what ==  MESSAGE_UPDATE_TITLE) {
                 ((TextView) findViewById(R.id.measureTitle)).setText(msg.obj.toString());
-            } //added
+            }
 
             if (msg.what ==  MESSAGE_UPDATE_REALTIME) {
                 ((TextView) findViewById(R.id.measureText1)).setText(msg.obj.toString());
@@ -76,9 +76,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
                 appMenu.getItem(MENU_INDEX_EXPORT_DETAILS).setVisible(true);
                 appMenu.getItem(MENU_INDEX_NEW_MEASUREMENT).setVisible(true);
 
-                //rachel
                 ((Button) findViewById(R.id.menuButton)).setVisibility(View.VISIBLE);
-
                 ((ImageView)findViewById(R.id.imageView)).setVisibility(View.INVISIBLE);
 
 
@@ -137,7 +135,6 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
         cameraService.stop();
 
         stopPlayer();
-        //((TextView)findViewById(R.id.measureTitle)).setText("Measuring Complete");
 
         if (analyzer != null) analyzer.stop();
         analyzer = new OutputAnalyzer(this, findViewById(R.id.graphTextureView), mainHandler);
@@ -152,8 +149,6 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
                 REQUEST_CODE_CAMERA);
 
 
-        // rachel
-
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
 
         Button button = findViewById(R.id.menuButton);
@@ -164,11 +159,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
 
 
 
-
-
     }
-
-
 
 
 
@@ -212,9 +203,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
         appMenu.getItem(MENU_INDEX_EXPORT_RESULT).setVisible(false);
         appMenu.getItem(MENU_INDEX_EXPORT_DETAILS).setVisible(false);
 
-        //rachel
         ((Button) findViewById(R.id.menuButton)).setVisibility(View.INVISIBLE);
-
 
         TextureView cameraTextureView = findViewById(R.id.textureView2);
         SurfaceTexture previewSurfaceTexture = cameraTextureView.getSurfaceTexture();
