@@ -3,12 +3,10 @@ package my.fyp.app.mpart;
 
         import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
-        import android.Manifest;
         import android.animation.AnimatorSet;
         import android.animation.ObjectAnimator;
         import android.content.Context;
         import android.content.Intent;
-        import android.content.pm.PackageManager;
         import android.graphics.Color;
         import android.media.MediaPlayer;
         import android.os.Build;
@@ -22,14 +20,11 @@ package my.fyp.app.mpart;
         import android.widget.ImageView;
         import android.widget.TextView;
 
-        import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.constraintlayout.widget.ConstraintLayout;
-        import androidx.core.app.ActivityCompat;
 
         import com.github.florent37.viewanimator.AnimationListener;
         import com.github.florent37.viewanimator.ViewAnimator;
-        import com.google.android.material.snackbar.Snackbar;
 
 
 public class activity_manual_audiovibrate extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
@@ -128,7 +123,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                 if(isRunning) {
                     // STOP breathing session forcefully ////
 
-                    Intent in = new Intent(activity_manual_audiovibrate.this, activity_completed.class);
+                    Intent in = new Intent(activity_manual_audiovibrate.this, CompletedActivity.class);
                     //stopPlayer();
 
                     player.stop();
@@ -237,7 +232,7 @@ public class activity_manual_audiovibrate extends AppCompatActivity implements F
                                 stopPlayer();
                             }
                             catch (Exception e){}
-                            Intent in = new Intent(activity_manual_audiovibrate.this,activity_completed.class);
+                            Intent in = new Intent(activity_manual_audiovibrate.this, CompletedActivity.class);
                             stopPlayer();
                             startActivity(in);
                             finish();

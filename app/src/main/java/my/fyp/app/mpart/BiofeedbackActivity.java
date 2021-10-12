@@ -6,21 +6,16 @@ package my.fyp.app.mpart;
         import android.Manifest;
         import android.animation.AnimatorSet;
         import android.animation.ObjectAnimator;
-        import android.animation.PropertyValuesHolder;
         import android.annotation.SuppressLint;
-        import android.content.Context;
         import android.content.Intent;
         import android.content.pm.PackageManager;
-        import android.graphics.Color;
         import android.graphics.SurfaceTexture;
         import android.media.MediaPlayer;
-        import android.os.Build;
         import android.os.Bundle;
         import android.os.CountDownTimer;
         import android.os.Handler;
         import android.os.Looper;
         import android.os.Message;
-        import android.os.VibrationEffect;
         import android.os.Vibrator;
         import android.util.Log;
         import android.view.Menu;
@@ -29,11 +24,8 @@ package my.fyp.app.mpart;
         import android.view.Surface;
         import android.view.TextureView;
         import android.view.View;
-        import android.view.animation.AlphaAnimation;
         import android.view.animation.Animation;
         import android.view.animation.AnimationUtils;
-        import android.view.animation.LinearInterpolator;
-        import android.view.animation.TranslateAnimation;
         import android.widget.Button;
         import android.widget.ImageView;
         import android.widget.TextView;
@@ -43,8 +35,6 @@ package my.fyp.app.mpart;
         import androidx.constraintlayout.widget.ConstraintLayout;
         import androidx.core.app.ActivityCompat;
 
-        import com.github.florent37.viewanimator.AnimationListener;
-        import com.github.florent37.viewanimator.ViewAnimator;
         import com.google.android.material.snackbar.Snackbar;
 
         import java.text.SimpleDateFormat;
@@ -421,7 +411,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                 if(isRunning) {
                     // STOP breathing session forcefully ////
 
-                    Intent in = new Intent(BiofeedbackActivity.this, activity_completed.class);
+                    Intent in = new Intent(BiofeedbackActivity.this, CompletedActivity.class);
 
                     startActivity(in);
                     if (player!=null){
@@ -547,7 +537,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
                                 stopPlayer();
                             }
                             catch (Exception e){}
-                            Intent in = new Intent(BiofeedbackActivity.this,activity_completed.class);
+                            Intent in = new Intent(BiofeedbackActivity.this, CompletedActivity.class);
                             stopPlayer();
                             startActivity(in);
                             finish();

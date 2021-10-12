@@ -19,7 +19,6 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class RecordActivity extends Activity implements ActivityCompat.OnRequestPermissionsResultCallback {
     private OutputAnalyzer analyzer;
 
     private final int REQUEST_CODE_CAMERA = 0;
@@ -143,7 +142,7 @@ public class MainActivity extends Activity implements ActivityCompat.OnRequestPe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_record);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);

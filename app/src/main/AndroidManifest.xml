@@ -23,11 +23,11 @@
         <!-- android:exported="true" /> -->
         <activity android:name=".activity_manual_audiovibrate"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity_completed"
+        <activity android:name=".CompletedActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Audiovisual"
+        <activity android:name=".NoBiofeedbackActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".RecordActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".MainMenu"

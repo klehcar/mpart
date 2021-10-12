@@ -44,7 +44,7 @@ class CameraService {
             Log.e("camera", "No access to camera", e);
             handler.sendMessage(Message.obtain(
                 handler,
-                MainActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
+                RecordActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
                 "No access to camera...."));
         }
 
@@ -54,12 +54,12 @@ class CameraService {
                 Log.println(Log.ERROR, "camera", "No permission to take photos");
                 handler.sendMessage(Message.obtain(
                     handler,
-                    MainActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
+                    RecordActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
                     "No permission to take photos"));
                 return;
             }
 
-            // message has been sent to MainActivity, this method can return.
+            // message has been sent to RecordActivity, this method can return.
             if (cameraId == null) {
                 return;
             };
@@ -122,7 +122,7 @@ class CameraService {
                 Log.println(Log.ERROR, "camera", e.getMessage());
                 handler.sendMessage(Message.obtain(
                     handler,
-                    MainActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
+                    RecordActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
                     e.getMessage()));
             }
         }

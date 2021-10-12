@@ -2,8 +2,6 @@ package my.fyp.app.mpart;
 
 import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
@@ -12,12 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.TextureView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -202,7 +195,7 @@ class BioAnalyzer {
                 if (valleys.size() == 0) {
                     mainHandler.sendMessage(Message.obtain(
                             mainHandler,
-                            MainActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
+                            RecordActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
                             "No valleys detected - there may be an issue when accessing the camera."));
                     return;
                 }
@@ -215,7 +208,7 @@ class BioAnalyzer {
                         1f * (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f);
 
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                sendMessage(RecordActivity.MESSAGE_UPDATE_REALTIME, currentValue);
 
                 StringBuilder returnValueSb = new StringBuilder();
                 returnValueSb.append(currentValue);
@@ -229,14 +222,14 @@ class BioAnalyzer {
                         activity.getResources().getQuantityString(R.plurals.breathRate_output_template, detectedValleys - 1),
                         (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f)))/4);
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, returnValueSb.toString());
+                sendMessage(RecordActivity.MESSAGE_UPDATE_REALTIME, returnValueSb.toString());
 
 
                 StringBuilder returnValueSb2 = new StringBuilder();
                 returnValueSb2.append(currentValue2);
                 returnValueSb2.append(activity.getString(R.string.row_separator));
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_FINAL,currentValue2);
+                sendMessage(RecordActivity.MESSAGE_UPDATE_FINAL,currentValue2);
 
                 cameraService.stop();
             }

@@ -7,7 +7,7 @@
     android:descendantFocusability="afterDescendants"
     android:focusable="auto"
     android:background="#F9F6F3"
-    tools:context=".MainActivity">
+    tools:context=".RecordActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -36,8 +36,8 @@
         app:layout_anchor="@+id/constraintLayout"
         app:layout_anchorGravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".MainActivity"
-        tools:showIn="@layout/activity_main">
+        tools:context=".RecordActivity"
+        tools:showIn="@layout/activity_record">
 
         <TextureView
             android:id="@+id/graphTextureView"

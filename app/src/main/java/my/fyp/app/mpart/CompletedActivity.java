@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class activity_completed extends AppCompatActivity {
+public class CompletedActivity extends AppCompatActivity {
     private Button back;
     MediaPlayer player;
 

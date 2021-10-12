@@ -35,13 +35,13 @@ public class MainMenu extends AppCompatActivity implements EasyPermissions.Permi
 
         Button recordButton = findViewById(R.id.record);
         recordButton.setOnClickListener(v -> {
-            Intent intent = new Intent (this, MainActivity.class);
+            Intent intent = new Intent (this, RecordActivity.class);
             startActivity(intent);
         });
 
         Button mabutton = findViewById(R.id.manual_audio);
         mabutton.setOnClickListener(v -> {
-            Intent intent = new Intent (this, Audiovisual.class);
+            Intent intent = new Intent (this, NoBiofeedbackActivity.class);
             startActivity(intent);
         });
 

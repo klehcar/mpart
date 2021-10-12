@@ -5,14 +5,10 @@ import static androidx.constraintlayout.motion.utils.Oscillator.TAG;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +22,7 @@ import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 
 
-public class Audiovisual extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
+public class NoBiofeedbackActivity extends AppCompatActivity implements FilterBottomSheetDialog.BottomSheetListener{
     private ImageView imageView;
     private TextView guideTxt;
     private Button startButton;
@@ -57,7 +53,7 @@ public class Audiovisual extends AppCompatActivity implements FilterBottomSheetD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_audiovisual);
+        setContentView(R.layout.activity_no_biofeedback);
 
 
         //in miliseconds 1000ms = 1s
@@ -122,7 +118,7 @@ public class Audiovisual extends AppCompatActivity implements FilterBottomSheetD
                 if(isRunning) {
                     // STOP breathing session forcefully ////
 
-                    Intent in = new Intent(Audiovisual.this, activity_completed.class);
+                    Intent in = new Intent(NoBiofeedbackActivity.this, CompletedActivity.class);
 
 
                     startActivity(in);
@@ -245,7 +241,7 @@ public class Audiovisual extends AppCompatActivity implements FilterBottomSheetD
                                 stopPlayer();
                             }
                             catch (Exception e){}
-                            Intent in = new Intent(Audiovisual.this,activity_completed.class);
+                            Intent in = new Intent(NoBiofeedbackActivity.this, CompletedActivity.class);
                             stopPlayer();
                             startActivity(in);
                             finish();
@@ -324,7 +320,7 @@ public class Audiovisual extends AppCompatActivity implements FilterBottomSheetD
 
                             @Override
                             public void onFinish() {
-                                startActivity( new Intent(getApplicationContext(), Audiovisual.class));
+                                startActivity( new Intent(getApplicationContext(), NoBiofeedbackActivity.class));
                                 finish();
 
                             }

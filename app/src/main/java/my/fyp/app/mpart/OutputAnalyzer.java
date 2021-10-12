@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.TextureView;
-import android.widget.TextView;
 
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -106,10 +105,10 @@ class OutputAnalyzer {
                                 detectedValleys,
                                 1f * (measurementLength - millisUntilFinished - clipLength) / 1000f);
 
-                        sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                        sendMessage(RecordActivity.MESSAGE_UPDATE_REALTIME, currentValue);
 
                         String statusUpdate = "Measuring...";
-                        sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate);
+                        sendMessage(RecordActivity.MESSAGE_UPDATE_TITLE, statusUpdate);
                     }
 
 
@@ -140,13 +139,13 @@ class OutputAnalyzer {
                 if (valleys.size() == 0) {
                     mainHandler.sendMessage(Message.obtain(
                             mainHandler,
-                            MainActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
+                            RecordActivity.MESSAGE_CAMERA_NOT_AVAILABLE,
                             "No valleys detected - there may be an issue when accessing the camera."));
                     return;
                 }
 
                 String statusUpdate2 = "Measuring Complete";
-                sendMessage(MainActivity.MESSAGE_UPDATE_TITLE, statusUpdate2);
+                sendMessage(RecordActivity.MESSAGE_UPDATE_TITLE, statusUpdate2);
 
                 String currentValue = String.format(
                         Locale.getDefault(),
@@ -156,7 +155,7 @@ class OutputAnalyzer {
                         1f * (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f);
 
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, currentValue);
+                sendMessage(RecordActivity.MESSAGE_UPDATE_REALTIME, currentValue);
 
                 StringBuilder returnValueSb = new StringBuilder();
                 returnValueSb.append(currentValue);
@@ -169,7 +168,7 @@ class OutputAnalyzer {
                         activity.getResources().getQuantityString(R.plurals.breathRate_output_template, detectedValleys - 1),
                         (60f * (detectedValleys - 1) / (Math.max(1, (valleys.get(valleys.size() - 1) - valleys.get(0)) / 1000f)))/4);
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_REALTIME, returnValueSb.toString());
+                sendMessage(RecordActivity.MESSAGE_UPDATE_REALTIME, returnValueSb.toString());
 
 
                 StringBuilder returnValueSb2 = new StringBuilder();
@@ -177,7 +176,7 @@ class OutputAnalyzer {
                 returnValueSb2.append(activity.getString(R.string.row_separator));
 
 
-                sendMessage(MainActivity.MESSAGE_UPDATE_FINAL,currentValue2);
+                sendMessage(RecordActivity.MESSAGE_UPDATE_FINAL,currentValue2);
 
                 cameraService.stop();
             }
