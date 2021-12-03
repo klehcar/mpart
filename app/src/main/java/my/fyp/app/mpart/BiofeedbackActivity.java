@@ -87,7 +87,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
 
     ImageView needle;
 
-    // #1 for Camera
+
     @SuppressLint("HandlerLeak")
     private final Handler mainHandler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -357,7 +357,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
     }
 
 
-    // #2 for Breathing Guide
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -365,7 +365,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
         setContentView(R.layout.activity_biofeedback);
 
 
-        ////////////////////////////////// #1 for camera
+        //////////////////////////////////  for camera
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.CAMERA},
                 REQUEST_CODE_CAMERA);
@@ -374,7 +374,7 @@ public class BiofeedbackActivity extends AppCompatActivity implements FilterBott
         ((ImageView)findViewById(R.id.cover)).setVisibility(View.VISIBLE);
 
 
-        ///////////////////////////// #2 for breathing guide
+        ///////////////////////////// for breathing guide
         inhale=4000;
         hold=7000;
         exhale=8000;

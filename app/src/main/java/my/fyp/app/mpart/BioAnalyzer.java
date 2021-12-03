@@ -143,9 +143,9 @@ class BioAnalyzer {
 
                         int position = posList.get(posList.size()-1);
 
+                        // measure heart rate (bpm) every 20 seconds
                         if(detectedValleys % 20 ==0) {
-                            //if increase bpm, pos -2
-                            //if decrease bpm, pos + 2
+                            //if increase bpm, move needle to the right
                             if (diff < 0) {
                                 if (position % 2 == 0) {
                                     position = position + 2;
@@ -157,7 +157,9 @@ class BioAnalyzer {
                                 posList.add(position);
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
                                 Log.d(TAG,"Position sent: "+ position);
-                                Log.d(TAG, "calmer");
+                                Log.d(TAG, "calmer - move towards blue");
+
+                            //if decrease bpm, move needle to the left
                             } else if (diff > 0.05 && position>=2) {
                                 if (position % 2 == 0) {
                                     position = position - 1;
@@ -169,7 +171,7 @@ class BioAnalyzer {
                                 posList.add(position);
                                 sendMessage(BiofeedbackActivity.MESSAGE_METER, position);
                                 Log.d(TAG,"Position sent: "+ position);
-                                Log.d(TAG, "redder");
+                                Log.d(TAG, "move towards pink");
                             }
                         }
 

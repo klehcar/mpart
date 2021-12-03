@@ -84,6 +84,7 @@ class OutputAnalyzer {
                     // extract the red component
                     // https://developer.android.com/reference/android/graphics/Color.html#decoding
                     for (int pixelIndex = 0; pixelIndex < pixelCount; pixelIndex++) {
+                        // RED = (color >> 16) & 0xff
                         measurement += (pixels[pixelIndex] >> 16) & 0xff;
                     }
                     // max int is 2^31 (2147483647) , so width and height can be at most 2^11,
